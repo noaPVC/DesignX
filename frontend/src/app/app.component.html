@@ -1,0 +1,10 @@
+<!-- render full dashboard only on a main route -->
+<div *ngIf="sideRoutes.includes(router.url) else render_main_route">
+  <router-outlet></router-outlet>
+</div>
+
+<ng-template #render_main_route>
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</ng-template>

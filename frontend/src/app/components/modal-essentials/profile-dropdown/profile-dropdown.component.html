@@ -1,0 +1,20 @@
+<div (click)="closeDropdown()" [class.active]="dropdownActive" class="dropdown-backdrop"></div>
+
+<div class="dropdown-wrapper" [class.active]="dropdownActive">
+  <div routerLink="/user/profile" (click)="closeDropdown()" class="dropdown-item">
+    <i class="fi fi-rr-user"></i>
+    <p>My Profile</p>
+  </div>
+
+  <div routerLink="/user/settings" (click)="closeDropdown()" class="dropdown-item">
+    <i class="fi fi-rr-settings"></i>
+    <p>Settings</p>
+  </div>
+
+  <div class="seperator"></div>
+
+  <div (click)="closeDropdown()" class="dropdown-item">
+    <i class="fi fi-rr-sign-out-alt"></i>
+    <p>Logout</p>
+  </div>
+</div>
