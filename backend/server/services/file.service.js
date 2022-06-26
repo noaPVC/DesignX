@@ -7,25 +7,32 @@ const tempDestination = 'server/usercontent/temp'
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, tempDestination),
     filename: (req, file, cb) => {
-        cb(null, `temp${path.extname(file.originalname)}`)
+        cb(null, `temp-${Date.now()}${path.extname(file.originalname)}`)
     }
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        var ext = path.extname(file.originalname)
+        if (ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
+            req.fileError = { error: true, message: `Only images allowed!, mime passed => ${ext}` }
+            return cb(null, true)
+        }
+        req.fileError = null
+        cb(null, true)
+    }
+})
 
 module.exports = {
     upload,
     // responsible for moving avatar after signup
-    moveAvatar: function (id, uuid) {
-        if (!id) return null
+    move: function (id, uuid, dir_action) {
+        if (!id || !uuid) return
 
-        const dir = `server/usercontent/avatars/${id}`
-        // create folders structure of user avatar store..
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, {
-                recursive: true
-            })
-        }
+        const dir = `server/usercontent/${dir_action}/${id}`
+        if (!fs.existsSync(dir))
+            fs.mkdirSync(dir, { recursive: true })
 
         const tmpFileName = fs.readdirSync(tempDestination)[0]
 
@@ -43,9 +50,21 @@ module.exports = {
     },
 
     // getting the relative path of the recently stored avatar file
-    getUniqueFilePath: function (id, uuid) {
-        const extension = path.extname(fs.readdirSync(tempDestination)[0])
-        return `/usercontent/avatars/${id}/${uuid}${extension}`
+    getUniqueFilePath: function (id, uuid, dir_action) {
+        tempFile = fs.readdirSync(tempDestination)[0]
+        if (tempFile) {
+            const extension = path.extname(tempFile)
+            return `/usercontent/${dir_action}/${id}/${uuid}${extension}`
+        }
+    },
+
+    deleteContentById: function (id, type) {
+        const contentPath = `server/usercontent/${type}/${id}`
+
+        if (fs.existsSync(contentPath))
+            fs.rmdir(contentPath, { recursive: true }, err => {
+                if (err) throw err
+            })
     },
 
     clearTemp: function () {

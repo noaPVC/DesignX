@@ -5,9 +5,10 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 
 const User = require('../models/user.model')
+
 const auth_service = require('../services/auth.service')
 const file_service = require('../services/file.service')
-const mapper_service = require('../services/mapper.service')
+const mapper_service = require('../services/response_mapper.service')
 
 router.post('/login', async (req, res) => {
   const data = req.body
@@ -28,22 +29,29 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/register', file_service.upload.single('avatar'), async (req, res) => {
+  if (req.fileError) {
+    file_service.clearTemp()
+    return res.status(400).json(req.fileError)
+  }
+
   const data = mapper_service.registrationObjectMapper(req.body)
 
-  if (!data.firstname || !data.lastname || !data.bio || !data.email || !data.username || !data.password)
+  if (!data.firstname || !data.lastname || !data.email || !data.username || !data.password)
     return res.status(400).json({ error: true, message: 'No arguments provided. Empty params..' })
 
   const user = new User(data)
 
   const uuid = uuidv4()
-  user.avatarProfileSource = file_service.getUniqueFilePath(user._id, uuid)
+  const path = file_service.getUniqueFilePath(user._id, uuid, 'avatars')
+  user.avatarProfileSource = path ? path : null
 
   const salt = await bcrypt.genSalt(10)
   user.password = await bcrypt.hash(user.password, salt)
 
   user.save()
     .then(() => {
-      file_service.moveAvatar(user._id, uuid)
+      if (path)
+        file_service.move(user._id, uuid, 'avatars')
       res.sendStatus(200)
     })
     .catch(err => {
@@ -52,8 +60,7 @@ router.post('/register', file_service.upload.single('avatar'), async (req, res) 
       if (err.code && err.code == 11000)
         return res.status(400).json({ error: true, message: 'User already exists.' })
 
-      if (err.message)
-        res.status(400).json({ error: true, message: 'Validation failed.' })
+      res.status(400).json({ error: true, message: 'Insertion failed.' })
     })
 })
 

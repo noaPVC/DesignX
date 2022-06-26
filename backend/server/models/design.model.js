@@ -4,18 +4,14 @@ const DesignSchema = new mongoose.Schema({
   caption: {
     type: String,
     trim: true,
-    minlength: 2,
+    minlength: 5,
     required: true
   },
   description: {
     type: String,
     trim: true,
-    minlength: 2,
+    minlength: 20,
     required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
   },
   coverImageSource: {
     type: String,
@@ -24,10 +20,20 @@ const DesignSchema = new mongoose.Schema({
     dropDups: true
   },
   tags: {
-    type: [{
-      type: String
-    }],
+    type: [{ type: String }],
     validate: [arrayLimit]
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  creatorImageSource: {
+    type: String,
+    required: false,
+  },
+  creatorName: {
+    type: String,
+    required: true
   },
   _userId: {
     type: mongoose.Types.ObjectId,

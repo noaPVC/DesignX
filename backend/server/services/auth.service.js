@@ -9,6 +9,11 @@ module.exports = {
         const generatedAccessToken = issueToken(user._id, user.email)
         const generatedRefreshToken = issueRefreshToken(user._id, user.email)
 
+        let avatarSource = null
+
+        if (user.avatarProfileSource)
+            avatarSource = `${domain}${user.avatarProfileSource}`
+
         return {
             user: {
                 _id: user._id,
@@ -17,7 +22,7 @@ module.exports = {
                 username: user.username,
                 email: user.email,
                 bio: user.bio,
-                avatarProfileSource: `${domain}${user.avatarProfileSource}`,
+                avatarProfileSource: avatarSource,
                 joined: user.joined
             },
             accessToken: generatedAccessToken,
