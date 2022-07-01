@@ -7,7 +7,7 @@ import { ExploreComponent } from './components/pages/explore/explore.component';
 import { GalleryComponent } from './components/pages/gallery/gallery.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { SavedComponent } from './components/pages/saved/saved.component';
-import { ProfileComponent } from './components/pages/user/profile/profile.component';
+import { AccountComponent } from './components/pages/user/account/account.component';
 import { SettingsComponent } from './components/pages/user/settings/settings.component';
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'authenticate/register', component: RegisterComponent },
 
   // user access pages
-  { path: 'user/profile', component: ProfileComponent },
+  { path: 'user/account', component: AccountComponent },
   { path: 'user/settings', component: SettingsComponent },
 
   // dashboard related main pages

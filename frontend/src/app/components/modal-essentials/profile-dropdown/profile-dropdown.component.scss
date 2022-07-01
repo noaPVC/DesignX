@@ -10,16 +10,14 @@
 }
 
 .dropdown-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  font-family: 'Montserrat', sans-serif;
   padding: 0.6rem 0.3rem;
   margin: 0.7rem 0.5rem 0 0;
-  gap: 0.3rem;
+
   width: 230px;
   position: absolute;
   border-radius: 5px;
-  top: 10%;
+  top: 70px;
   right: 0;
   background-color: white;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
@@ -28,8 +26,14 @@
   opacity: 0;
 }
 
-.dropdown-wrapper .dropdown-item {
-  font-family: 'Montserrat', sans-serif;
+.dropdown-wrapper .options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dropdown-wrapper .options .dropdown-item {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -41,17 +45,17 @@
   cursor: pointer;
 }
 
-.dropdown-wrapper .dropdown-item:hover {
+.dropdown-wrapper .options .dropdown-item:hover {
   background-color: rgba(128, 128, 128, 0.087);
 }
 
-.dropdown-wrapper .seperator {
+.dropdown-wrapper .options .seperator {
   width: 100%;
   padding: 0 2rem;
   border-top: 0.4px solid rgba(128, 128, 128, 0.195);
 }
 
-.dropdown-wrapper .dropdown-item i {
+.dropdown-wrapper .options .dropdown-item i {
   margin-top: 3px;
   font-size: 1.3em;
 }
@@ -59,4 +63,19 @@
 .dropdown-backdrop.active, .dropdown-wrapper.active {
   pointer-events: all;
   opacity: 1;
+}
+
+/* account info wrapper definitions */
+
+.account-info-wrapper {
+  margin: .5rem;
+}
+
+.account-info-wrapper .info {
+  margin: 0.7rem 0;
+}
+
+.account-info-wrapper .info p {
+  font-size: 0.9em;
+  color: gray;
 }

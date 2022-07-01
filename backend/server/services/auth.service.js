@@ -15,8 +15,8 @@ module.exports = {
             avatarSource = `${domain}${user.avatarProfileSource}`
 
         return {
+            _id: user._id,
             user: {
-                _id: user._id,
                 firstname: user.firstname,
                 lastname: user.lastname,
                 username: user.username,

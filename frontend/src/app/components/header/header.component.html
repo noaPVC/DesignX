@@ -1,29 +1,35 @@
 <header>
-  <div class="logo">
-    <img src="../../../assets/icon.png" alt="DesignX Logo">
+  <div class="logo" routerLink="/dashboard/home">
+    <img src="/assets/icon.png" alt="DesignX Logo">
     <p>DesignX</p>
   </div>
 
   <div class="links">
     <ul>
       <li routerLink="/dashboard/home" routerLinkActive="active">
-        <i class="fi fi-rr-home"></i>
+        <div class="link-icon">
+          <i class="fi fi-rr-home"></i>
+        </div>
       </li> <!-- home where feed is loaded -->
       <li routerLink="/dashboard/saved" routerLinkActive="active">
-        <i class="fi fi-rr-bookmark"></i>
+        <div class="link-icon">
+          <i class="fi fi-rr-bookmark"></i>
+        </div>
       </li> <!-- bookmarked or saved -->
       <li routerLink="/dashboard/explore" routerLinkActive="active">
-        <i class="fi fi-rr-bulb"></i>
+        <div class="link-icon">
+          <i class="fi fi-rr-bulb"></i>
+        </div>
       </li> <!-- bulb or ideas exploring -->
       <li routerLink="/dashboard/gallery" routerLinkActive="active">
-        <i class="fi fi-rr-layout-fluid"></i>
+        <div class="link-icon">
+          <i class="fi fi-rr-layout-fluid"></i>
+        </div>
       </li> <!-- gallery, your posts.. uploads -->
     </ul>
 
-    <div (click)="showProfileOptions()" class="profile-wrapper">
-      <i class="fi fi-rr-user"></i>
-      <div class="profile-content" [style.background-image]="'url('+ profileSource +')'"></div>
-    </div>
+    <app-profile-presenter (presenterClicked)="showProfileOptions()" [allowCursorPointer]="true" [size]="47">
+    </app-profile-presenter>
   </div>
 </header>
 

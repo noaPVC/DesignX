@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { UserService } from 'src/app/services/user/user.service'
 
 @Component({
   selector: 'app-header',
@@ -7,20 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class HeaderComponent implements OnInit {
-  profileOptionsExpanded : boolean;
-  profileSource: string = 'https://avatars.githubusercontent.com/u/76920918?v=4';
+  profileOptionsExpanded : boolean = false
+  profileSource: string | null
 
-  constructor() {
-    this.profileOptionsExpanded = false;
+  constructor(private userService: UserService) {
+    this.profileSource = this.userService.user?.avatarProfileSource
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.profileOptionsExpanded = false
+  }
 
   showProfileOptions() : void {
-    this.profileOptionsExpanded = true;
+    this.profileOptionsExpanded = true
   }
 
   profileOptionsChanged(newDropdownChangedArgs : boolean) : void {
-    this.profileOptionsExpanded = newDropdownChangedArgs;
+    this.profileOptionsExpanded = newDropdownChangedArgs
   }
 }

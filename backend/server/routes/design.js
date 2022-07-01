@@ -5,14 +5,15 @@ const router = express.Router()
 
 const Design = require('../models/design.model')
 const User = require('../models/user.model')
+const Saved = require('../models/saved.model')
 
-const auth_service = require('../services/auth.service')
+const { authenticateToken } = require('../services/auth.service')
 const mapper_service = require('../services/response_mapper.service')
 const file_service = require('../services/file.service')
 
 // (/creation) route handles single creation actions
 
-router.get('/:id', auth_service.authenticateToken, async (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
     const parsedId = req.params.id
     const domain = `${req.protocol}://${req.get('host')}`
 
@@ -29,7 +30,7 @@ router.get('/:id', auth_service.authenticateToken, async (req, res) => {
     res.status(404).json({ error: true, message: 'Design does not exist.' })
 })
 
-router.post('/new', [auth_service.authenticateToken, file_service.upload.single('cover')], async (req, res) => {
+router.post('/new', [authenticateToken, file_service.upload.single('cover')], async (req, res) => {
     if (req.fileError) {
         file_service.clearTemp()
         return res.status(400).json(req.fileError)
@@ -62,7 +63,7 @@ router.post('/new', [auth_service.authenticateToken, file_service.upload.single(
         })
 })
 
-router.delete('/remove/:id', auth_service.authenticateToken, async (req, res) => {
+router.delete('/remove/:id', authenticateToken, async (req, res) => {
     const parsedId = req.params.id
     const userId = req.user._id
 
@@ -83,7 +84,7 @@ router.delete('/remove/:id', auth_service.authenticateToken, async (req, res) =>
     res.status(401).json({ error: true, message: 'Unauthorized!' })
 })
 
-router.put('/update/:id', auth_service.authenticateToken, async (req, res) => {
+router.put('/update/:id', authenticateToken, async (req, res) => {
     const parsedId = req.params.id
     const userId = req.user._id
 
@@ -106,5 +107,16 @@ router.put('/update/:id', auth_service.authenticateToken, async (req, res) => {
     res.status(401).json({ error: true, message: 'Unauthorized!' })
 })
 
+router.post('/save/:id', authenticateToken, async (req, res) => {
+    const parsedId = req.params.id
+    const userId = req.user._id
+
+    if (!mongoose.isValidObjectId(parsedId)) return res.status(400).json({ error: true, message: 'Invalid id!' })
+
+    const savedDesign = new Saved(parsedId, userId)
+    savedDesign.save()
+        .then(() => res.sendStatus(200))
+        .catch(err => res.status(500).json({ error: true, message: 'Insertion failed.' }))
+})
 
 module.exports = router

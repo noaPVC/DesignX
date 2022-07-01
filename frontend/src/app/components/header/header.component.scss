@@ -16,6 +16,7 @@ header {
   display: flex;
   align-items: center;
   gap: 0.7rem;
+  cursor: pointer;
 }
 
 .logo img {
@@ -44,7 +45,7 @@ header {
 
 /* single item */
 
-.links ul li {
+.links ul li .link-icon {
   font-size: 1.1em;
   cursor: pointer;
   color: #8F96DF;
@@ -54,42 +55,9 @@ header {
   transition: margin 100ms ease-in-out;
 }
 
-.links ul li.active {
+.links ul li.active .link-icon{
   color: white;
   background-color: #87A0E4;
-  margin-bottom: 10px;
-  transition: all 0.3s ease-out;
-}
-
-.links ul li.active:hover {
-  margin-bottom: 0;
-}
-
-.links ul li:hover {
-  margin-bottom: 10px;
-}
-
-/* user profile-image container wrapper */
-
-.profile-wrapper {
-  cursor: pointer;
-  display: grid;
-  width: fit-content;
-  border-radius: 50%;
-  font-size: 1.5em;
-  background-color: antiquewhite;
-}
-
-.profile-wrapper i, .profile-content {
-  margin: auto;
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.profile-content {
-  width: 47px;
-  height: 47px;
-  border-radius: 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
+  margin-bottom: 5px;
+  transition: all 0.3s ease-in-out;
 }

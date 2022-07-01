@@ -1,0 +1,23 @@
+.profile-wrapper {
+  display: grid;
+  width: fit-content;
+  border-radius: 50%;
+  font-size: 1.5em;
+  background-color: antiquewhite;
+}
+
+.profile-wrapper i, .profile-content {
+  margin: auto;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.profile-content {
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.profile-content.pointer {
+  cursor: pointer;
+}

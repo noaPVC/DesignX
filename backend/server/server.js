@@ -6,8 +6,8 @@ const cors = require('cors')
 // required routes
 const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
-const creationRouter = require('./routes/creation')
-const creationsRouter = require('./routes/creations')
+const designRouter = require('./routes/design')
+const designsRouter = require('./routes/designs')
 
 const app = express()
 const PORT = 3000
@@ -22,8 +22,8 @@ app.use('/usercontent', express.static(__dirname + '/usercontent'))
 // routes
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
-app.use('/creation', creationRouter)
-app.use('/creations', creationsRouter)
+app.use('/design', designRouter)
+app.use('/designs', designsRouter)
 
 // wildcard route handling unknown requests
 app.get('**', (req, res) => {
