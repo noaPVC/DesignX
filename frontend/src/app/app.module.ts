@@ -15,12 +15,14 @@ import { SettingsComponent } from './components/pages/user/settings/settings.com
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { PageNotFoundComponent } from './components/error-handlers/page-not-found/page-not-found.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services/user/user.service';
 import { AuthService } from './services/auth/auth.service';
 import { AccountComponent } from './components/pages/user/account/account.component';
 import { FullnamePipe } from './pipes/user/fullname.pipe';
 import { ProfilePresenterComponent } from './components/ui-items/profile-presenter/profile-presenter.component';
+import { InterceptorService } from './services/web-services/client/interceptor.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,16 @@ import { ProfilePresenterComponent } from './components/ui-items/profile-present
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [UserService, AuthService],
+  providers: [
+    UserService,
+    AuthService,
+    { provide: "BASE_URL", useValue: environment.baseUrl },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 

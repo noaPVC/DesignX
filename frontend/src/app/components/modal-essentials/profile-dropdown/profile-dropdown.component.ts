@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -15,11 +16,16 @@ export class ProfileDropdownComponent implements OnInit {
   // dependend on account-info-wrapper
   user: User
 
-  constructor(userService: UserService) {
+  constructor(userService: UserService, private authService: AuthService) {
     this.user = userService.user
   }
 
   ngOnInit(): void {}
+
+  logout(): void {
+    this.authService.logout()
+    this.closeDropdown()
+  }
 
   closeDropdown() : void {
     this.dropdownActive = false;

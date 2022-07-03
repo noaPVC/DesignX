@@ -24,6 +24,7 @@
 
   pointer-events: none;
   opacity: 0;
+  transition: opacity 100ms ease-out;
 }
 
 .dropdown-wrapper .options {
@@ -63,6 +64,7 @@
 .dropdown-backdrop.active, .dropdown-wrapper.active {
   pointer-events: all;
   opacity: 1;
+  transition: opacity 50ms ease-in;
 }
 
 /* account info wrapper definitions */

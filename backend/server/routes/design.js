@@ -15,7 +15,6 @@ const file_service = require('../services/file.service')
 
 router.get('/:id', authenticateToken, async (req, res) => {
     const parsedId = req.params.id
-    const domain = `${req.protocol}://${req.get('host')}`
 
     if (!parsedId || !mongoose.isValidObjectId(parsedId))
         return res.status(400).json({ error: true, message: 'Invalid Id!' })
@@ -23,7 +22,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
     const design = await Design.findById(parsedId)
 
     if (design) {
-        const designResponse = mapper_service.designResponseBuilder(design, req.user._id, domain)
+        const designResponse = mapper_service.designResponseBuilder(design, req.user._id)
         return res.status(200).json(designResponse)
     }
 

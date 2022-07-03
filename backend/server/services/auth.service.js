@@ -5,14 +5,14 @@ const token_secret = process.env.ACCESS_TOKEN_SECRET;
 const refresh_secret = process.env.REFRESH_TOKEN_SECRET;
 
 module.exports = {
-    loginResponseBuilder: function (user, domain) {
+    loginResponseBuilder: function (user) {
         const generatedAccessToken = issueToken(user._id, user.email)
         const generatedRefreshToken = issueRefreshToken(user._id, user.email)
 
         let avatarSource = null
 
         if (user.avatarProfileSource)
-            avatarSource = `${domain}${user.avatarProfileSource}`
+            avatarSource = user.avatarProfileSource
 
         return {
             _id: user._id,

@@ -4,7 +4,7 @@
 <div class="dropdown-wrapper" [class.active]="dropdownActive">
 
   <div class="account-info-wrapper">
-    <app-profile-presenter [size]="65"></app-profile-presenter>
+    <app-profile-presenter [iconSize]="28" [size]="65"></app-profile-presenter>
 
     <div class="info">
       <h4>{{ user.firstname | fullname:user.lastname }}</h4>
@@ -27,7 +27,7 @@
 
     <div class="seperator"></div>
 
-    <div (click)="closeDropdown()" class="dropdown-item">
+    <div (click)="logout()" class="dropdown-item">
       <i class="fi fi-rr-sign-out-alt"></i>
       <p>Logout</p>
     </div>

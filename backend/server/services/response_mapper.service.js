@@ -25,11 +25,11 @@ module.exports = {
         }
     },
 
-    designResponseBuilder: function (object, userId, domain) {
+    designResponseBuilder: function (object, userId) {
         let avatarSource = null
 
         if (object.creatorImageSource)
-            avatarSource = `${domain}${object.creatorImageSource}`
+            avatarSource = object.creatorImageSource
 
         return {
             metadata: {
@@ -42,7 +42,7 @@ module.exports = {
             _id: object._id,
             caption: object.caption,
             description: object.description,
-            coverImageSource: `${domain}${object.coverImageSource}`,
+            coverImageSource: object.coverImageSource,
             tags: object.tags
         }
     },

@@ -12,14 +12,13 @@ const mapper_service = require('../services/response_mapper.service')
 
 router.post('/login', async (req, res) => {
   const data = req.body
-  const user = await User.findOne({ email: data.email })
-  const domain = `${req.protocol}://${req.get('host')}`
+  const user = await User.findOne({ $or: [{ email: data.usernameOrEmail }, { username: data.usernameOrEmail }] })
 
   if (user) {
     const validPassword = await bcrypt.compare(data.password, user.password)
 
     if (validPassword) {
-      const loginResponseBuilder = auth_service.loginResponseBuilder(user, domain)
+      const loginResponseBuilder = auth_service.loginResponseBuilder(user)
       return res.status(200).json(loginResponseBuilder)
     }
 
