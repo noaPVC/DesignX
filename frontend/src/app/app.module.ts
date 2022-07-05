@@ -19,10 +19,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services/user/user.service';
 import { AuthService } from './services/auth/auth.service';
 import { AccountComponent } from './components/pages/user/account/account.component';
-import { FullnamePipe } from './pipes/user/fullname.pipe';
 import { ProfilePresenterComponent } from './components/ui-items/profile-presenter/profile-presenter.component';
 import { InterceptorService } from './services/web-services/client/interceptor.service';
 import { environment } from 'src/environments/environment';
+import { FullnamePipe } from './pipes/user/fullname/fullname.pipe';
+import { ImageUrlSourcePipe } from './pipes/user/image-url-source/image-url-source.pipe';
+import { FormsModule } from '@angular/forms';
+import { CheckboxComponent } from './components/ui-items/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -39,13 +42,16 @@ import { environment } from 'src/environments/environment';
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
+    ProfilePresenterComponent,
     FullnamePipe,
-    ProfilePresenterComponent
+    ImageUrlSourcePipe,
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule
   ],
   providers: [

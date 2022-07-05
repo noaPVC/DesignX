@@ -37,7 +37,7 @@
 .dropdown-wrapper .options .dropdown-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: .7rem;
   font-size: 0.95em;
   color: black;
   padding: 0.35rem 0.55rem;
@@ -58,7 +58,7 @@
 
 .dropdown-wrapper .options .dropdown-item i {
   margin-top: 3px;
-  font-size: 1.3em;
+  font-size: 1.7em;
 }
 
 .dropdown-backdrop.active, .dropdown-wrapper.active {

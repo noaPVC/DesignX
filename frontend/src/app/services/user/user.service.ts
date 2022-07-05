@@ -1,35 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  user: User
+  user: User = { firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
   isLoggedIn: boolean = false
 
-  constructor(httpClient : HttpClient) {
-    if(localStorage.getItem('user')) {
-
-      const storedUser = localStorage.getItem('user')
-      this.user = JSON.parse(storedUser ?? '')
-      this.isLoggedIn = true
-
+  constructor(private httpClient : HttpClient, private router: Router) {
+    if(localStorage.getItem('token') && localStorage.getItem('user')) {
+      this.user = JSON.parse(localStorage.getItem('user') ?? '')
       return
     }
 
-    this.user = { firstname: 'User', lastname: 'Not found', username: 'unknownuser', email: 'usernotfound@gmail.com', avatarProfileSource: null, bio: '-', joined: Date.now().toString() }
+    this.router.navigateByUrl('/authenticate/login')
+    this.dispose()
   }
 
   initialize(user: User) : void {
     this.user = user
-    localStorage.setItem('user', JSON.stringify(this.user))
     this.isLoggedIn = true
+
+    this.updateLocalValues()
+  }
+
+  // explicit data request
+  requestUserData() : Observable<any> {
+    return this.httpClient.get<any>('/user/current')
+  }
+
+  updateLocalValues() : void {
+    localStorage.removeItem('user')
+    localStorage.setItem('user', JSON.stringify(this.user))
   }
 
   dispose() : void {
-    this.user = { firstname: 'User', lastname: 'Not found', username: 'unknownuser', email: 'usernotfound@gmail.com', avatarProfileSource: null, bio: '-', joined: Date.now().toString() }
     this.isLoggedIn = false
     localStorage.clear()
   }

@@ -53,5 +53,17 @@ module.exports = {
             description: object.description,
             tags: object.tags
         }
+    },
+
+    userDataResponse: function (user) {
+        return {
+            firstname: user.firstname,
+            lastname: user.lastname,
+            username: user.username,
+            email: user.email,
+            bio: user.bio,
+            avatarProfileSource: user.avatarProfileSource,
+            joined: user.joined
+        }
     }
 }

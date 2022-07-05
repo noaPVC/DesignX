@@ -7,7 +7,7 @@ export class FullnamePipe implements PipeTransform {
 
   // pipe can be used to combine first and lastname in
   // any given order
-  transform(before: string, after: string): unknown {
+  transform(before: string, after: string): string {
     return `${before} ${after}`;
   }
 }

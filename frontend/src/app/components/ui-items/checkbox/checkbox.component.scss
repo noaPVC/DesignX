@@ -1,0 +1,29 @@
+.remember-me-checkmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.remember-me-checkmark .val-container {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 2px solid #8f98e0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remember-me-checkmark .val-container.checked .fill {
+  width: 10px;
+  height: 10px;
+  border-radius: 1px;
+  background-color: #8f98e0;
+}
+
+.remember-me-checkmark .text {
+  font-size: .88em;
+}

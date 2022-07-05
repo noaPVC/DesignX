@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpStatusCode } from '@angular/common/http'
+import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http'
 import { UserService } from '../user/user.service'
 import { UserAuthDto } from 'src/app/models/dtos/user-auth.dto'
 import { Router } from '@angular/router'
@@ -19,14 +19,7 @@ export class AuthService {
       password: password
     }
 
-    const observableAuth = this.httpClient.post<any>('/auth/login', payload)
-
-    observableAuth.subscribe(response => {
-      localStorage.setItem('token', response.accessToken)
-      localStorage.setItem('refreshToken', response.refreshToken)
-    })
-
-    return observableAuth
+    return this.httpClient.post<any>('/auth/login', payload)
   }
 
   register(userRegisterData: UserAuthDto) : boolean {
@@ -42,9 +35,9 @@ export class AuthService {
     if(userRegisterData.avatar)
       payloadFormData.append('avatar', userRegisterData.avatar, userRegisterData.avatar.name)
 
-    this.httpClient.post<HttpStatusCode>('/auth/register', payloadFormData)
-      .subscribe(statusCode => {
-        if(statusCode == HttpStatusCode.Ok)
+    this.httpClient.post<HttpResponse<any>>('/auth/register', payloadFormData)
+      .subscribe(response => {
+        if(response.status == 200)
           return true
 
         return false
@@ -57,9 +50,12 @@ export class AuthService {
 
   }
 
+  refreshToken() {
+
+  }
+
   logout() : void {
     this.userService.dispose()
-    history.pushState(null, '')
     this.router.navigateByUrl('/authenticate/login')
   }
 }

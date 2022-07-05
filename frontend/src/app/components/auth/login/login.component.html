@@ -1,14 +1,25 @@
 <div class="login-wrapper">
-  <div class="login-container">
+  <div class="login-container" [class.loaded]="loadedDelayer">
+
     <div class="logo-presenter">
-      <img src="/assets/icon.png" alt="DesignX">
+      <div class="logo"></div>
       <p>DesignX</p>
+      <p class="subtitle">Resolve your ideas into reality.</p>
     </div>
 
-    <form>
-      <input type="text" placeholder="Email or username">
-      <input type="password" placeholder="Password">
+    <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+      <input type="text" name="usernameOrEmail" placeholder="Email or Username" ngModel>
+      <input type="password" name="password" placeholder="Password" ngModel>
+
+      <app-checkbox (checkedValue)="rememberMeChanged($event)">Keep me logged in.</app-checkbox>
+
+      <!-- <span class="error-message" *ngIf="loaded">Invalid credentials provided.</span> -->
+
+      <button>Login</button>
     </form>
-    <button (click)="login()">Login</button>
+
+    <a class="link" routerLink="/authenticate/register">Don't have an account yet? <br> Create one!</a>
   </div>
 </div>
+
+<!-- fix imagesource pipe -->

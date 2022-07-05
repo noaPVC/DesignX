@@ -1,7 +1,132 @@
-
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+/* content wrapper and login container definitions */
+
+.login-container {
+  width: 365px;
+
+  font-family: 'Montserrat', sans-serif;
+  border: .1px solid rgba(128, 128, 128, 0.213);
+  border-radius: 10px;
+  padding: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+
+  opacity: 0;
+  margin-top: 30%;
+}
+
+.login-container.loaded {
+  opacity: 1;
+  margin-top: 0;
+
+  transition: opacity .5s ease, margin 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* top presenter related styling */
+
+.logo-presenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  user-select: none;
+}
+
+.logo-presenter .logo {
+  width: 130px;
+  height: 130px;
+  background-image: url('/assets/icon.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logo-presenter p {
+  font-size: 1.9em;
+}
+
+.logo-presenter .subtitle {
+  font-size: 1em;
+  text-align: center;
+}
+
+/* form definitions */
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+/* input incl. button definitions */
+
+.login-container form input {
+  padding: .8rem 1rem;
+  border: 1px solid rgba(128, 128, 128, 0.233);
+  border-radius: 5px;
+  font-size: 1em;
+
+  transition: border .3s ease;
+}
+
+.login-container form input:focus {
+  outline: none;
+}
+
+/* button */
+
+.login-container form button {
+  cursor: pointer;
+  border: none;
+  background-color: #8f98e0;
+  border-radius: 8px;
+  padding: .8rem;
+  font-size: 1.1em;
+  color: white;
+}
+
+.login-container form button:hover {
+  outline: none;
+  background-color: #868ed1;
+  color: rgb(221, 221, 221);
+
+  transition: background-color .2s ease, color .3s ease;
+}
+
+/* anchor tag link style */
+
+.login-container .link {
+  text-align: center;
+  font-size: 0.95em;
+  color: #747ec9;
+  text-decoration: none;
+}
+
+.login-container .link:hover {
+  text-align: center;
+  color: rgb(107, 116, 184);
+  text-decoration: underline;
+}
+
+.login-container .link:active {
+  text-align: center;
+  color: rgb(107, 116, 184);
+}
+
+/* media queries and responsiveness targeting */
+
+@media only screen and (max-width: 435px) {
+  .login-container {
+    border: none;
+    height: 85vh;
+  }
 }

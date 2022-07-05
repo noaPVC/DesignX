@@ -1,4 +1,4 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { AfterContentChecked, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core'
 import { Router, RouterOutlet } from '@angular/router'
 
 @Component({
@@ -30,6 +30,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
     if(outlet.isActivated)
       return outlet.activatedRoute.snapshot.url
 
-    return
+    return null
   }
 }
