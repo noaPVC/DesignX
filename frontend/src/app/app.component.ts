@@ -1,4 +1,4 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core'
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { Router, RouterOutlet } from '@angular/router'
 
 @Component({
@@ -8,6 +8,7 @@ import { Router, RouterOutlet } from '@angular/router'
 })
 
 export class AppComponent implements OnInit, AfterContentChecked {
+
   constructor(public router : Router, private changeRef: ChangeDetectorRef) {}
 
   sideRoutes : string[] = [
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
     '/**'
   ];
 
-  ngOnInit() : void {}
+  ngOnInit() : void { }
 
   // prevent outlet from passing animation on non existing route data/content
   ngAfterContentChecked(): void {

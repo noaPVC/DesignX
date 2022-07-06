@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.6rem;
 
   opacity: 0;
   margin-top: 30%;
@@ -64,7 +64,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 1rem;
+  gap: .7rem;
 }
 
 /* input incl. button definitions */
@@ -82,12 +82,18 @@
   outline: none;
 }
 
+.login-container form input.ng-touched.ng-invalid {
+  border: 1px solid rgb(228, 121, 121);
+
+  transition: border .3s ease;
+}
+
 /* button */
 
 .login-container form button {
   cursor: pointer;
   border: none;
-  background-color: #8f98e0;
+  background-color: #87A0E4;
   border-radius: 8px;
   padding: .8rem;
   font-size: 1.1em;
@@ -96,7 +102,7 @@
 
 .login-container form button:hover {
   outline: none;
-  background-color: #868ed1;
+  background-color: #7d94d2;
   color: rgb(221, 221, 221);
 
   transition: background-color .2s ease, color .3s ease;
@@ -107,19 +113,17 @@
 .login-container .link {
   text-align: center;
   font-size: 0.95em;
-  color: #747ec9;
+  color: #758ac3;
   text-decoration: none;
 }
 
 .login-container .link:hover {
   text-align: center;
-  color: rgb(107, 116, 184);
   text-decoration: underline;
 }
 
 .login-container .link:active {
   text-align: center;
-  color: rgb(107, 116, 184);
 }
 
 /* media queries and responsiveness targeting */

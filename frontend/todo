@@ -1,2 +1,7 @@
 - implement theming system, as well as use app configs
-- implement models
+- validation in forms (auth)
+- register view
+- dashboard and implement more fucntions as well as work on services
+
+- expand loaders with more diversity (line/progress loaders, point/dot loaders, block loaders etc.)
+- checkout behaviour subject rxjs

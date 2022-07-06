@@ -26,6 +26,9 @@ import { FullnamePipe } from './pipes/user/fullname/fullname.pipe';
 import { ImageUrlSourcePipe } from './pipes/user/image-url-source/image-url-source.pipe';
 import { FormsModule } from '@angular/forms';
 import { CheckboxComponent } from './components/ui-items/checkbox/checkbox.component';
+import { ValidationFeedbackLabelComponent } from './components/ui-items/validation-feedback-label/validation-feedback-label.component';
+import { LoadingSpinnerComponent } from './components/ui-items/loaders/loading-spinner/loading-spinner.component';
+import { CallInterceptorService } from './services/web-services/call-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { CheckboxComponent } from './components/ui-items/checkbox/checkbox.compo
     ProfilePresenterComponent,
     FullnamePipe,
     ImageUrlSourcePipe,
-    CheckboxComponent
+    CheckboxComponent,
+    ValidationFeedbackLabelComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -57,10 +62,14 @@ import { CheckboxComponent } from './components/ui-items/checkbox/checkbox.compo
   providers: [
     UserService,
     AuthService,
-    { provide: "BASE_URL", useValue: environment.baseUrl },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CallInterceptorService,
       multi: true
     }
   ],

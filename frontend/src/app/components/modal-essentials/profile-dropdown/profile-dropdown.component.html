@@ -4,7 +4,7 @@
 <div class="dropdown-wrapper" [class.active]="dropdownActive">
 
   <div class="account-info-wrapper">
-    <app-profile-presenter [iconSize]="28" [size]="65"></app-profile-presenter>
+    <app-profile-presenter [iconSize]="40" [size]="65"></app-profile-presenter>
 
     <div class="info">
       <h4>{{ user.firstname | fullname:user.lastname }}</h4>
@@ -16,12 +16,12 @@
     <div class="seperator"></div>
 
     <div routerLink="/user/account" (click)="closeDropdown()" class="dropdown-item">
-      <i class='bx bx-user-pin'></i>
-      <p>My Profile</p>
+      <i class="ri-user-line"></i>
+      <p>My Account</p>
     </div>
 
     <div routerLink="/user/settings" (click)="closeDropdown()" class="dropdown-item">
-      <i class='bx bx-cog'></i>
+      <i class="ri-settings-3-line"></i>
       <p>Settings</p>
     </div>
 

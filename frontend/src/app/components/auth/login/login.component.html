@@ -1,25 +1,42 @@
 <div class="login-wrapper">
-  <div class="login-container" [class.loaded]="loadedDelayer">
+  <app-loading-spinner *ngIf="(loadingService.isLoading | async) else loginView"></app-loading-spinner>
 
-    <div class="logo-presenter">
-      <div class="logo"></div>
-      <p>DesignX</p>
-      <p class="subtitle">Resolve your ideas into reality.</p>
+  <ng-template #loginView>
+    <div class="login-container" [class.loaded]="loadedDelayer">
+
+      <div class="logo-presenter">
+        <div class="logo"></div>
+        <p>DesignX</p>
+        <p class="subtitle">Resolve your ideas into reality.</p>
+      </div>
+
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <input type="text" name="usernameOrEmail" placeholder="Email or username" required #usernameOrEmail="ngModel"
+          ngModel>
+        <input type="password" name="password" placeholder="Password" required #password="ngModel" ngModel>
+
+        <app-checkbox (checkedValue)="rememberMeChanged($event)">Keep me logged in.</app-checkbox>
+
+        <!-- Error handler labels -->
+        <app-validation-feedback-label [showError]="unknownError">
+          Some error occured! Try again later..
+        </app-validation-feedback-label>
+
+        <app-validation-feedback-label [showError]="invalidCredentialsError">
+          Invalid credentials!
+        </app-validation-feedback-label>
+
+        <app-validation-feedback-label
+          [showError]="((usernameOrEmail.invalid && usernameOrEmail.touched) || (password.invalid && password.touched)) ?? false">
+          Fields cannot be empty.
+        </app-validation-feedback-label>
+
+        <button>Login</button>
+      </form>
+
+      <a class="link" routerLink="/authenticate/register">Don't have an account yet? <br> Create one!</a>
     </div>
-
-    <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
-      <input type="text" name="usernameOrEmail" placeholder="Email or Username" ngModel>
-      <input type="password" name="password" placeholder="Password" ngModel>
-
-      <app-checkbox (checkedValue)="rememberMeChanged($event)">Keep me logged in.</app-checkbox>
-
-      <!-- <span class="error-message" *ngIf="loaded">Invalid credentials provided.</span> -->
-
-      <button>Login</button>
-    </form>
-
-    <a class="link" routerLink="/authenticate/register">Don't have an account yet? <br> Create one!</a>
-  </div>
+  </ng-template>
 </div>
 
 <!-- fix imagesource pipe -->
