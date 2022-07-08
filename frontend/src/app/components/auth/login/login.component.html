@@ -1,5 +1,5 @@
 <div class="login-wrapper">
-  <app-loading-spinner *ngIf="(loadingService.isLoading | async) else loginView"></app-loading-spinner>
+  <app-loader [loaderType]="loader" *ngIf="(loadingService.isLoading | async) else loginView"></app-loader>
 
   <ng-template #loginView>
     <div class="login-container" [class.loaded]="loadedDelayer">
@@ -11,32 +11,24 @@
       </div>
 
       <form (ngSubmit)="login()" #loginForm="ngForm">
-        <input type="text" name="usernameOrEmail" placeholder="Email or username" required #usernameOrEmail="ngModel"
-          ngModel>
-        <input type="password" name="password" placeholder="Password" required #password="ngModel" ngModel>
+        <input type="text" name="usernameOrEmail" placeholder="Email or username" required ngModel>
+
+        <div class="password-input">
+          <input type="{{ showPassword ? 'text' : 'password' }}" name="password" placeholder="Password" required
+            ngModel>
+
+          <div (click)="showPassword = !showPassword" class="password-visibility-toggler">
+            <i [ngClass]="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+          </div>
+        </div>
 
         <app-checkbox (checkedValue)="rememberMeChanged($event)">Keep me logged in.</app-checkbox>
+        <app-validation-feedback-label [showError]="isError">{{ errorMessage }}</app-validation-feedback-label>
 
-        <!-- Error handler labels -->
-        <app-validation-feedback-label [showError]="unknownError">
-          Some error occured! Try again later..
-        </app-validation-feedback-label>
-
-        <app-validation-feedback-label [showError]="invalidCredentialsError">
-          Invalid credentials!
-        </app-validation-feedback-label>
-
-        <app-validation-feedback-label
-          [showError]="((usernameOrEmail.invalid && usernameOrEmail.touched) || (password.invalid && password.touched)) ?? false">
-          Fields cannot be empty.
-        </app-validation-feedback-label>
-
-        <button>Login</button>
+        <button class="primary-button">Login</button>
       </form>
 
       <a class="link" routerLink="/authenticate/register">Don't have an account yet? <br> Create one!</a>
     </div>
   </ng-template>
 </div>
-
-<!-- fix imagesource pipe -->

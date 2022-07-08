@@ -1,8 +1,10 @@
+
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* content wrapper and login container definitions */
@@ -10,8 +12,7 @@
 .login-container {
   width: 365px;
 
-  font-family: 'Montserrat', sans-serif;
-  border: .1px solid rgba(128, 128, 128, 0.213);
+  border: .1px solid var(--gray-outline-color);
   border-radius: 10px;
   padding: 1.5rem;
 
@@ -67,63 +68,35 @@
   gap: .7rem;
 }
 
-/* input incl. button definitions */
+/* password visibility toggle */
 
-.login-container form input {
-  padding: .8rem 1rem;
-  border: 1px solid rgba(128, 128, 128, 0.233);
-  border-radius: 5px;
-  font-size: 1em;
-
-  transition: border .3s ease;
+.login-container form .password-input {
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
 
-.login-container form input:focus {
-  outline: none;
+.login-container form .password-input input {
+  position: relative;
+  font-family: 'Source Code Pro', monospace;
+  width: 100%;
 }
 
-.login-container form input.ng-touched.ng-invalid {
-  border: 1px solid rgb(228, 121, 121);
-
-  transition: border .3s ease;
-}
-
-/* button */
-
-.login-container form button {
+.login-container form .password-input .password-visibility-toggler {
+  background-color: var(--background-color);
   cursor: pointer;
-  border: none;
-  background-color: #87A0E4;
-  border-radius: 8px;
-  padding: .8rem;
-  font-size: 1.1em;
-  color: white;
+  width: 25px;
+  height: 25px;
+  font-size: 23px;
+  position: absolute;
+  margin-right: .5rem;
+  color: var(--gray-color);
 }
 
-.login-container form button:hover {
-  outline: none;
-  background-color: #7d94d2;
-  color: rgb(221, 221, 221);
+/* validation label adjustment */
 
-  transition: background-color .2s ease, color .3s ease;
-}
-
-/* anchor tag link style */
-
-.login-container .link {
-  text-align: center;
-  font-size: 0.95em;
-  color: #758ac3;
-  text-decoration: none;
-}
-
-.login-container .link:hover {
-  text-align: center;
-  text-decoration: underline;
-}
-
-.login-container .link:active {
-  text-align: center;
+.login-container form app-validation-feedback-label {
+  margin: .4rem 0;
 }
 
 /* media queries and responsiveness targeting */

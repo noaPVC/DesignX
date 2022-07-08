@@ -1,6 +1,125 @@
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #87A0E4;
+  --primary-hover: #7d94d2;
+
+  --gray-color: rgba(128, 128, 128, 0.704);
+  --gray-outline-color: rgba(128, 128, 128, 0.233);
+  --primary-warning: rgb(228, 121, 121);
+
+  --background-color: white;
+}
+
+/* scrollbar styling */
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(192, 192, 192);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(179, 179, 179);
+}
+
+/* global inputs */
+
+input {
+  padding: .8rem 1rem;
+  border: 1px solid var(--gray-outline-color);
+  border-radius: 5px;
+  font-size: 1em;
+
+  transition: border .3s ease;
+}
+
+input:focus {
+  outline: none;
+}
+
+input.ng-touched.ng-invalid {
+  border: 1px solid var(--primary-warning);
+  transition: border .3s ease;
+}
+
+/* global buttons */
+
+.primary-button {
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  padding: .8rem;
+  font-size: 1.1em;
+  color: var(--background-color);
+  min-width: 100px;
+}
+
+.primary-button:hover {
+  outline: none;
+  background-color: var(--primary-hover);
+
+  transition: background-color .2s ease, color .3s ease;
+}
+
+/* border button definitions */
+
+.border-button {
+  cursor: pointer;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: .8rem;
+  font-size: 1.1em;
+  color: var(--primary-color);
+  background: none;
+  min-width: 100px;
+}
+
+.border-button:hover {
+  outline: none;
+  opacity: 0.7;
+
+  transition: opacity .2s ease, color .3s ease;
+}
+
+/* text area definitions */
+
+textarea {
+  font-family: sans-serif;
+  padding: .8rem 1rem;
+  border: 1px solid var(--gray-outline-color);
+  border-radius: 5px;
+  font-size: 1em;
+  resize: none;
+  transition: border .3s ease;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+/* global anchor tag style */
+
+.link {
+  text-align: center;
+  font-size: 0.88em;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-align: center;
+  text-decoration: underline;
+  color: var(--primary-hover);
 }

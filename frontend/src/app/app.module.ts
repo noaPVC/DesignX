@@ -27,8 +27,8 @@ import { ImageUrlSourcePipe } from './pipes/user/image-url-source/image-url-sour
 import { FormsModule } from '@angular/forms';
 import { CheckboxComponent } from './components/ui-items/checkbox/checkbox.component';
 import { ValidationFeedbackLabelComponent } from './components/ui-items/validation-feedback-label/validation-feedback-label.component';
-import { LoadingSpinnerComponent } from './components/ui-items/loaders/loading-spinner/loading-spinner.component';
 import { CallInterceptorService } from './services/web-services/call-interceptor.service';
+import { LoaderComponent } from './components/ui-items/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { CallInterceptorService } from './services/web-services/call-interceptor
     ImageUrlSourcePipe,
     CheckboxComponent,
     ValidationFeedbackLabelComponent,
-    LoadingSpinnerComponent
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

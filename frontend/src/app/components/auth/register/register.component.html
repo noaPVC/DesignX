@@ -1,1 +1,30 @@
-<p>register works!</p>
+<div class="register-wrapper">
+  <div class="register-container">
+    <div class="title-paragraph">
+      <h2>Create an Account</h2>
+      <p>Start publishing your designs and share them with other people.</p>
+    </div>
+
+    <form (ngSubmit)="nextSignUp()" #signUpDataForm="ngForm">
+      <input type="text" name="firstname" placeholder="Firstname" required minlength="2" ngModel>
+      <input type="text" name="lastname" placeholder="Lastname" required minlength="2" ngModel>
+      <input class="username" type="text" name="username" placeholder="Username" required minlength="5" ngModel>
+      <input class="email" type="text" name="email" placeholder="Email" required email ngModel>
+
+      <textarea class="bio-area" name="bio" placeholder="Bio (tell us something about you)" cols="30" rows="5"
+        maxlength="500" ngModel></textarea>
+
+      <input class="password-field" type="password" name="password" placeholder="Password" required minlength="8"
+        ngModel>
+      <input class="password-field" type="password" name="passwordConfirmation" placeholder="Confirm Password" required
+        minlength="8" ngModel>
+
+      <app-validation-feedback-label [showError]="isError">{{ errorMessage }}</app-validation-feedback-label>
+
+      <div class="action">
+        <button class="border-button cancel">Cancel</button>
+        <button class="primary-button next">Next</button>
+      </div>
+    </form>
+  </div>
+</div>

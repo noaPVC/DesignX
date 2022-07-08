@@ -1,0 +1,96 @@
+
+.register-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 110vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.title-paragraph {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0 0 2rem 0;
+}
+
+/* register container definitions */
+
+.register-container {
+  width: 900px;
+  padding: 1.5rem;
+
+  border: 1px solid var(--gray-outline-color);
+  border-radius: 10px;
+}
+
+.register-container form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 1rem;
+  column-gap: .5rem;
+}
+
+/* field-grid placement space adjustment definitions */
+
+app-validation-feedback-label,
+.bio-area,
+.action,
+.username,
+.email,
+.password-field {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cancel, .next {
+  width: 150px;
+}
+
+.password-field {
+  font-family: 'Source Code Pro', sans-serif;
+}
+
+/* media queries and responsiveness targeting */
+
+@media only screen and (max-width: 960px) {
+  .register-container {
+    border: none;
+  }
+
+  .register-wrapper {
+    height: 110vh;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .register-container form {
+    grid-template-columns: 1fr;
+  }
+
+  app-validation-feedback-label,
+  .bio-area,
+  .action,
+  .username,
+  .email,
+  .password-field {
+    grid-column-start: unset;
+    grid-column-end: unset;
+  }
+}
+
+@media only screen and (max-width: 385px) {
+  .action {
+    flex-direction: column;
+  }
+
+  .cancel, .next {
+    width: 100%;
+  }
+}

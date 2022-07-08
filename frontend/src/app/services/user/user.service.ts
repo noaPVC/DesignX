@@ -29,9 +29,7 @@ export class UserService {
   }
 
   // explicit data request
-  requestUserData() : Observable<any> {
-    return this.httpClient.get<any>('/user/current')
-  }
+  requestUserData = () : Observable<any> => this.httpClient.get<any>('/user/current')
 
   updateLocalValues() : void {
     localStorage.removeItem('user')

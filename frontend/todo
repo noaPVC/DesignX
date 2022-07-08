@@ -2,6 +2,8 @@
 - validation in forms (auth)
 - register view
 - dashboard and implement more fucntions as well as work on services
+- remember me function in login
+- suggestion dark theme bg-color #091828
 
 - expand loaders with more diversity (line/progress loaders, point/dot loaders, block loaders etc.)
 - checkout behaviour subject rxjs

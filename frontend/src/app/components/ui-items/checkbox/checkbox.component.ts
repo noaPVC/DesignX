@@ -14,7 +14,7 @@ export class CheckboxComponent implements OnInit {
 
   @HostListener('click')
   onClick() {
-    this.checked = !  this.checked
+    this.checked = !this.checked
     this.checkedValue.emit(this.checked)
   }
 
