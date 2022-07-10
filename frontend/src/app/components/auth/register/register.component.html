@@ -1,30 +1,35 @@
 <div class="register-wrapper">
   <div class="register-container">
     <div class="title-paragraph">
-      <h2>Create an Account</h2>
-      <p>Start publishing your designs and share them with other people.</p>
+      <h2>{{ registrationStep == 1 ? 'Create an Account' : 'Profile Image'}}</h2>
+      <p>
+        {{ registrationStep == 1 ? 'Start publishing your designs and share them with other people.' : 'Select an image from your local machine or by just dragging and dropping it in here.'}}
+      </p>
     </div>
 
-    <form (ngSubmit)="nextSignUp()" #signUpDataForm="ngForm">
-      <input type="text" name="firstname" placeholder="Firstname" required minlength="2" ngModel>
-      <input type="text" name="lastname" placeholder="Lastname" required minlength="2" ngModel>
-      <input class="username" type="text" name="username" placeholder="Username" required minlength="5" ngModel>
-      <input class="email" type="text" name="email" placeholder="Email" required email ngModel>
+    <form *ngIf="registrationStep == 1" [formGroup]="signUpForm">
+      <input type="text" formControlName="firstname" placeholder="Firstname" required minlength="2">
+      <input type="text" formControlName="lastname" placeholder="Lastname" required minlength="2">
+      <input class="username" type="text" formControlName="username" placeholder="Username" required minlength="5">
+      <input class="email" type="text" formControlName="email" placeholder="Email" required email>
 
-      <textarea class="bio-area" name="bio" placeholder="Bio (tell us something about you)" cols="30" rows="5"
-        maxlength="500" ngModel></textarea>
+      <textarea class="bio-area" formControlName="bio" placeholder="Bio (tell us something about you)" cols="30"
+        rows="5" maxlength="500">
+        </textarea>
 
-      <input class="password-field" type="password" name="password" placeholder="Password" required minlength="8"
-        ngModel>
-      <input class="password-field" type="password" name="passwordConfirmation" placeholder="Confirm Password" required
-        minlength="8" ngModel>
+      <input class="password-field" type="password" formControlName="password" placeholder="Password" required
+        minlength="8">
+      <input class="password-field" type="password" formControlName="passwordConfirmation"
+        placeholder="Confirm Password" required minlength="8">
 
       <app-validation-feedback-label [showError]="isError">{{ errorMessage }}</app-validation-feedback-label>
-
-      <div class="action">
-        <button class="border-button cancel">Cancel</button>
-        <button class="primary-button next">Next</button>
-      </div>
     </form>
+
+    <span *ngIf="registrationStep == 2">TODO: display image selection control here!</span>
+
+    <div class="action">
+      <button class="border-button" (click)="back()">{{ registrationStep == 1 ? 'Cancel' : 'Back' }}</button>
+      <button class="primary-button" (click)="next()">{{ registrationStep == 1 ? 'Next' : 'Register' }}</button>
+    </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ header {
   align-items: center;
   justify-content: space-between;
   font-family: 'Montserrat', sans-serif;
-  border-bottom: 0.4px solid rgba(128, 128, 128, 0.158);
+  border-bottom: 0.4px solid var(--primary-thin);
   padding: 0 1rem;
 }
 
@@ -17,6 +17,7 @@ header {
   align-items: center;
   gap: 0.7rem;
   cursor: pointer;
+  color: var(--font-color);
 }
 
 .logo img {
@@ -48,17 +49,17 @@ header {
 .links ul li .link-icon {
   font-size: 1.5em;
   cursor: pointer;
-  color: #8F96DF;
+  color: var(--primary-color);
   padding: 8px 8px 2px 8px;
-  box-shadow: #8F96DF 0px 1px 4px;
   border-radius: 50%;
-  background: white;
+  background-color: var(--icon-background-color);
   transition: margin 100ms ease-in-out;
 }
 
 .links ul li.active .link-icon {
   color: white;
-  background-color: #87A0E4;
+  background-color: var(--primary-color);
+  box-shadow: var(--primary-color) 0px 0px 5px 0px, var(--primary-color) 0px 0px 1px 0px;
   margin-bottom: 5px;
   transition: all 0.3s ease-in-out;
 }

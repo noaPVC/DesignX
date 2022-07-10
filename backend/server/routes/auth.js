@@ -51,6 +51,7 @@ router.post('/register', file_service.upload.single('avatar'), async (req, res) 
     .then(() => {
       if (path)
         file_service.move(user._id, uuid, 'avatars')
+
       res.sendStatus(200)
     })
     .catch(err => {

@@ -4,16 +4,39 @@
   box-sizing: border-box;
 }
 
+/* light */
+
 :root {
   --primary-color: #87A0E4;
+  --primary-thin: #87a0e422;
   --primary-hover: #7d94d2;
 
   --gray-color: rgba(128, 128, 128, 0.704);
   --gray-outline-color: rgba(128, 128, 128, 0.233);
   --primary-warning: rgb(228, 121, 121);
 
+  --font-color: black;
+
   --background-color: white;
+  --icon-background-color: rgba(0, 0, 0, 0.051);
 }
+
+/* dark */
+
+// :root {
+//   --primary-color: #87A0E4;
+//   --primary-thin: #87a0e422;
+//   --primary-hover: #7d94d2;
+
+//   --gray-color: rgba(128, 128, 128, 0.704);
+//   --gray-outline-color: rgba(128, 128, 128, 0.233);
+//   --primary-warning: rgb(228, 121, 121);
+
+//   --font-color: white;
+
+//   --background-color: #091828;
+//   --icon-background-color: rgba(0, 0, 0, 0.152);
+// }
 
 /* scrollbar styling */
 
@@ -33,13 +56,20 @@
   background: rgb(179, 179, 179);
 }
 
+body {
+  background-color: var(--background-color);
+}
+
 /* global inputs */
 
 input {
   padding: .8rem 1rem;
+  font-family: 'Montserrat', sans-serif;
   border: 1px solid var(--gray-outline-color);
+  background: none;
   border-radius: 5px;
   font-size: 1em;
+  color: var(--font-color);
 
   transition: border .3s ease;
 }
@@ -96,13 +126,33 @@ input.ng-touched.ng-invalid {
 /* text area definitions */
 
 textarea {
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
   padding: .8rem 1rem;
   border: 1px solid var(--gray-outline-color);
   border-radius: 5px;
   font-size: 1em;
   resize: none;
   transition: border .3s ease;
+  color: var(--font-color);
+  background: none;
+}
+
+textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 0 5px 5px 0;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: rgb(192, 192, 192);
+  border-radius: 5px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
 }
 
 textarea:focus {

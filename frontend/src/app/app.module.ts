@@ -24,11 +24,12 @@ import { InterceptorService } from './services/web-services/client/interceptor.s
 import { environment } from 'src/environments/environment';
 import { FullnamePipe } from './pipes/user/fullname/fullname.pipe';
 import { ImageUrlSourcePipe } from './pipes/user/image-url-source/image-url-source.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxComponent } from './components/ui-items/checkbox/checkbox.component';
 import { ValidationFeedbackLabelComponent } from './components/ui-items/validation-feedback-label/validation-feedback-label.component';
 import { CallInterceptorService } from './services/web-services/call-interceptor.service';
 import { LoaderComponent } from './components/ui-items/loader/loader.component';
+import { RegisterSharedService } from './services/shared/register-shared/register-shared.service';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { LoaderComponent } from './components/ui-items/loader/loader.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule
   ],
   providers: [

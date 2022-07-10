@@ -11,6 +11,7 @@
 
 .login-container {
   width: 365px;
+  background-color: var(--background-color);
 
   border: .1px solid var(--gray-outline-color);
   border-radius: 10px;
@@ -40,6 +41,7 @@
   align-items: center;
   gap: .5rem;
   user-select: none;
+  color: var(--font-color);
 }
 
 .logo-presenter .logo {

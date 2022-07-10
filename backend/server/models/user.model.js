@@ -41,7 +41,6 @@ const UserSchema = new mongoose.Schema({
   avatarProfileSource: {
     type: String,
     required: false,
-    unique: true,
     dropDups: true
   },
   joined: {

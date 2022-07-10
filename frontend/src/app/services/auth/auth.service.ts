@@ -34,6 +34,7 @@ export class AuthService {
 
     if(userRegisterData.avatar)
       payloadFormData.append('avatar', userRegisterData.avatar, userRegisterData.avatar.name)
+    else payloadFormData.append('avarar', '')
 
     this.httpClient.post<HttpResponse<any>>('/auth/register', payloadFormData)
       .subscribe(response => {

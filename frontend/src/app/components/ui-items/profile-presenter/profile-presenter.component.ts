@@ -25,5 +25,8 @@ export class ProfilePresenterComponent implements OnInit {
 
   ngOnInit(): void {
       this.source = `${environment.baseUrl}${this.source}`
+
+      if(!this.source.endsWith('null'))
+        this.colorValueBackground = '#00000000'
   }
 }

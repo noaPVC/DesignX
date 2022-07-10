@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
     '/**'
   ];
 
-  ngOnInit() : void { }
+  ngOnInit() : void {}
 
   // prevent outlet from passing animation on non existing route data/content
   ngAfterContentChecked(): void {
