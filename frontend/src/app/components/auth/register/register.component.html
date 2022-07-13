@@ -1,35 +1,52 @@
 <div class="register-wrapper">
-  <div class="register-container">
-    <div class="title-paragraph">
-      <h2>{{ registrationStep == 1 ? 'Create an Account' : 'Profile Image'}}</h2>
-      <p>
-        {{ registrationStep == 1 ? 'Start publishing your designs and share them with other people.' : 'Select an image from your local machine or by just dragging and dropping it in here.'}}
-      </p>
-    </div>
+  <app-loader [loaderType]="loader" *ngIf="(loadingService.isLoading | async) else signUpView"></app-loader>
 
-    <form *ngIf="registrationStep == 1" [formGroup]="signUpForm">
-      <input type="text" formControlName="firstname" placeholder="Firstname" required minlength="2">
-      <input type="text" formControlName="lastname" placeholder="Lastname" required minlength="2">
-      <input class="username" type="text" formControlName="username" placeholder="Username" required minlength="5">
-      <input class="email" type="text" formControlName="email" placeholder="Email" required email>
+  <ng-template #signUpView>
+    <div class="register-container">
+      <div class="title-paragraph">
+        <h2>{{ registrationStep == 1 ? 'Create an Account' : 'Profile Image'}}</h2>
+        <p>
+          {{ registrationStep == 1 ? 'Start publishing your designs and share them with other people.' : 'Select an image from your local machine or by just dragging and dropping it in here.'}}
+        </p>
+        <p *ngIf="registrationStep == 2">(File size should not exceed, the maximum file size of 1MB)</p>
+      </div>
 
-      <textarea class="bio-area" formControlName="bio" placeholder="Bio (tell us something about you)" cols="30"
-        rows="5" maxlength="500">
+      <!-- credentials and private info section -->
+      <form *ngIf="registrationStep == 1" [formGroup]="signUpForm">
+        <input type="text" formControlName="firstname" placeholder="Firstname" required minlength="2">
+        <input type="text" formControlName="lastname" placeholder="Lastname" required minlength="2">
+        <input class="username" type="text" formControlName="username" placeholder="Username" required minlength="5">
+        <input class="email" type="text" formControlName="email" placeholder="Email" required email>
+
+        <textarea class="bio-area" formControlName="bio" placeholder="Bio (tell us something about you)" cols="30"
+          rows="5" maxlength="500">
         </textarea>
 
-      <input class="password-field" type="password" formControlName="password" placeholder="Password" required
-        minlength="8">
-      <input class="password-field" type="password" formControlName="passwordConfirmation"
-        placeholder="Confirm Password" required minlength="8">
+        <input class="password-field" type="password" formControlName="password" placeholder="Password" required
+          minlength="8">
+        <input class="password-field" type="password" formControlName="passwordConfirmation"
+          placeholder="Confirm Password" required minlength="8">
 
-      <app-validation-feedback-label [showError]="isError">{{ errorMessage }}</app-validation-feedback-label>
-    </form>
+        <app-validation-feedback-label [showError]="isError">{{ errorMessage }}</app-validation-feedback-label>
+      </form>
 
-    <span *ngIf="registrationStep == 2">TODO: display image selection control here!</span>
+      <!-- profile image section -->
+      <div *ngIf="registrationStep == 2" class="profile-section">
+        <div class="image-selector-container">
+          <app-profile-presenter [source]="avatarSourceUrl" [size]="170" [iconSize]="70" [allowCursorPointer]="true"
+            [isEditMode]="true" (presenterClicked)="fileupload.click()" (imageRemoved)="removedImage()">
+          </app-profile-presenter>
 
-    <div class="action">
-      <button class="border-button" (click)="back()">{{ registrationStep == 1 ? 'Cancel' : 'Back' }}</button>
-      <button class="primary-button" (click)="next()">{{ registrationStep == 1 ? 'Next' : 'Register' }}</button>
+          <input type="file" hidden (change)="handleAvatarFileUpload($event)" [multiple]="false" #fileupload>
+        </div>
+
+        <app-validation-feedback-label [showError]="isError">{{ errorMessage }}</app-validation-feedback-label>
+      </div>
+
+      <div class="action">
+        <button class="border-button" (click)="back()">{{ registrationStep == 1 ? 'Cancel' : 'Back' }}</button>
+        <button class="primary-button" (click)="next()">{{ registrationStep == 1 ? 'Next' : 'Register' }}</button>
+      </div>
     </div>
-  </div>
+  </ng-template>
 </div>

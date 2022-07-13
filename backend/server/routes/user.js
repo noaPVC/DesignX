@@ -19,4 +19,12 @@ router.get('/current', authenticateToken, async (req, res) => {
     res.status(200).json(userResponse)
 })
 
+// validation exists on user signup
+router.post('/username/email/exists', async (req, res) => {
+    const usernameOrEmail = req.body.key
+    const user = await User.findOne({ $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }] })
+
+    return res.json({ exists: user != null && user != undefined })
+})
+
 module.exports = router

@@ -13,12 +13,19 @@
 
   --gray-color: rgba(128, 128, 128, 0.704);
   --gray-outline-color: rgba(128, 128, 128, 0.233);
-  --primary-warning: rgb(228, 121, 121);
+
+  --primary-valid: rgb(115, 203, 48);
+  --primary-warning: rgb(255, 201, 94);
+  --primary-error: rgb(228, 121, 121);
+
+  --primary-valid-background: rgba(115, 203, 48, 0.1);
+  --primary-warning-background: rgb(255, 201, 94, 0.1);
+  --primary-error-background: rgb(228, 121, 121, 0.1);
 
   --font-color: black;
 
   --background-color: white;
-  --icon-background-color: rgba(0, 0, 0, 0.051);
+  --icon-background-color: #e6e6fa;
 }
 
 /* dark */
@@ -29,8 +36,15 @@
 //   --primary-hover: #7d94d2;
 
 //   --gray-color: rgba(128, 128, 128, 0.704);
-//   --gray-outline-color: rgba(128, 128, 128, 0.233);
-//   --primary-warning: rgb(228, 121, 121);
+//   --gray-outline-color: rgba(55, 79, 157, 0.233);
+
+//   --primary-valid: rgb(115, 203, 48);
+//   --primary-warning: rgb(255, 201, 94);
+//   --primary-error: rgb(228, 121, 121);
+
+//   --primary-valid-background: rgba(115, 203, 48, 0.1);
+//   --primary-warning-background: rgb(255, 201, 94, 0.1);
+//   --primary-error-background: rgb(228, 121, 121, 0.1);
 
 //   --font-color: white;
 
@@ -79,7 +93,7 @@ input:focus {
 }
 
 input.ng-touched.ng-invalid {
-  border: 1px solid var(--primary-warning);
+  border: 1px solid var(--primary-error);
   transition: border .3s ease;
 }
 

@@ -1,12 +1,13 @@
 - implement theming system, as well as use app configs
-- validation in forms (auth)
-- register view
 - dashboard and implement more fucntions as well as work on services
 - remember me function in login
-- suggestion dark theme bg-color #091828
-
-- expand loaders with more diversity (line/progress loaders, point/dot loaders, block loaders etc.)
 - checkout behaviour subject rxjs
+
+- find better way to deal with validation (make validation services)
+- add profile image resizer on image editing (make popup component)
+- write custom validators for inputs (username/exists validator/email...)
+- show registration result on success, as well as on error (check observable error/catch)
+- possibly add animations between register steps
 
 - Text to use bio based:
 - I am 17 years old, and currently studying software engineering at HTL-Spengergasse, in Vienna. I love to code and being able to take on new challenges. A long term goal of mine is to learn as much as possible – stretch that horizon.

@@ -1,0 +1,88 @@
+
+.snackbar-toast {
+  left: 50%;
+  bottom: 30px;
+  position: fixed;
+
+  font-family: 'Montserrat', sans-serif;
+  visibility: hidden;
+  min-width: 300px;
+  margin-left: -150px;
+  background-color: var(--background-color);
+
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+
+  text-align: center;
+  border-radius: 8px;
+  padding: 12px 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 1;
+}
+
+.snackbar-toast .content {
+  display: flex;
+  align-items: center;
+  font-size: .95em;
+  gap: 1rem;
+}
+
+.snackbar-toast.show {
+  visibility: visible;
+
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* close button */
+
+.close-manual {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-manual:hover {
+  opacity: .8;
+
+  transition: opacity 200ms ease;
+}
+
+/* sizing icon */
+
+.content i, .close-manual i {
+  font-size: 1.5em;
+}
+
+/* toast keyframe animations */
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}

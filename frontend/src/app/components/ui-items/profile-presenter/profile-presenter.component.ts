@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment';
 
@@ -7,14 +7,18 @@ import { environment } from 'src/environments/environment';
   templateUrl: './profile-presenter.component.html',
   styleUrls: ['./profile-presenter.component.scss']
 })
-export class ProfilePresenterComponent implements OnInit {
+export class ProfilePresenterComponent implements OnInit, OnChanges {
+  colorValueBackground: string = this.pickRandomColor()
+  savedBackgroundColor: string = this.colorValueBackground
+
   @Input() size: number = 45
   @Input() iconSize: number = 25
-  @Input() colorValueBackground: string = 'antiquewhite'
-  @Input() source: string | null = this.userService.user.avatarProfileSource
+  @Input() source: string | null | undefined = `${environment.baseUrl}${this.userService.user.avatarProfileSource}`
   @Input() allowCursorPointer: boolean = false
+  @Input() isEditMode: boolean = false
 
   @Output() presenterClicked: EventEmitter<void> = new EventEmitter<void>()
+  @Output() imageRemoved: EventEmitter<void> = new EventEmitter<void>()
 
   constructor(private userService: UserService) {}
 
@@ -24,9 +28,38 @@ export class ProfilePresenterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.source = `${environment.baseUrl}${this.source}`
+    const savedColor = localStorage.getItem('sharedAccountColor')
+    if(!savedColor)
+      return localStorage.setItem('sharedAccountColor', this.colorValueBackground)
 
-      if(!this.source.endsWith('null'))
-        this.colorValueBackground = '#00000000'
+    this.setSharedColor(savedColor)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.colorValueBackground = this.source && !this.source.endsWith('null') ? '#0000' : this.savedBackgroundColor
+  }
+
+  setSharedColor(color: string) {
+    this.colorValueBackground = color
+    this.savedBackgroundColor = this.colorValueBackground
+
+    this.colorValueBackground = this.source && !this.source.endsWith('null') ? '#0000' : this.savedBackgroundColor
+  }
+
+  onEdit(event: any) {
+    event.stopPropagation()
+    this.onClick()
+  }
+
+  onRemove(event: any) {
+    event.stopPropagation()
+    this.imageRemoved.emit()
+  }
+
+  pickRandomColor(): string {
+    const colors: string[] = ['#E6E6FA', '#fff1e1', '#F7D2E1', '#a2d5c6', '#12a4d9', '#ffc13b', '#5c3c92', '#d9a5b3', '#1868ae', '#c6d7eb', '#77c593']
+    const randIdx = Math.floor(Math.random() * colors.length)
+
+    return colors[randIdx]
   }
 }

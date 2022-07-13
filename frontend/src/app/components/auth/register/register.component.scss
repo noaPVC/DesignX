@@ -12,14 +12,19 @@
   flex-direction: column;
   gap: 5px;
   color: var(--font-color);
-  margin: 0 0 2rem 0;
+  margin-bottom: 2rem;
 }
 
 /* register container definitions */
 
 .register-container {
   width: 900px;
-  padding: 1.5rem;
+  height: 90vh;
+  margin: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .register-container form {
@@ -46,6 +51,7 @@ app-validation-feedback-label,
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  padding-bottom: 2rem;
 }
 
 .action button {
@@ -62,11 +68,31 @@ app-validation-feedback-label {
   margin: .5rem 0 1.5rem 0;
 }
 
+/* profile section definitions */
+
+.profile-section {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  gap: 2rem;
+}
+
+.image-selector-container {
+  border-radius: 50%;
+  border: 6px solid var(--primary-color);
+  border-right: 6px solid #0000;
+  padding: 5px;
+}
+
 /* media queries and responsiveness targeting */
 
 @media only screen and (max-width: 540px) {
-  .register-wrapper {
-    height: 110vh;
+  .register-container {
+    height: 95vh;
   }
 
   .register-container form {

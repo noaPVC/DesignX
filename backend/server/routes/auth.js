@@ -24,6 +24,7 @@ router.post('/login', async (req, res) => {
 
     return res.status(400).json({ error: true, message: 'Invalid credentials!' })
   }
+
   res.status(400).json({ error: true, message: 'User does not exist!' })
 })
 
@@ -52,7 +53,7 @@ router.post('/register', file_service.upload.single('avatar'), async (req, res) 
       if (path)
         file_service.move(user._id, uuid, 'avatars')
 
-      res.sendStatus(200)
+      res.status(200).json({ error: false, message: 'success' })
     })
     .catch(err => {
       file_service.clearTemp()

@@ -1,5 +1,6 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { Router, RouterOutlet } from '@angular/router'
+import { ToastService } from './services/notification/toast/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { Router, RouterOutlet } from '@angular/router'
 
 export class AppComponent implements OnInit, AfterContentChecked {
 
-  constructor(public router : Router, private changeRef: ChangeDetectorRef) {}
+  constructor(public router : Router, private changeRef: ChangeDetectorRef, public toastService: ToastService) {}
 
   sideRoutes : string[] = [
     '/authenticate/login',
@@ -32,5 +33,9 @@ export class AppComponent implements OnInit, AfterContentChecked {
       return outlet.activatedRoute.snapshot.url
 
     return null
+  }
+
+  toastVisibilityChanged(args: boolean) {
+    this.toastService.isShown = args
   }
 }

@@ -22,7 +22,7 @@ export class AuthService {
     return this.httpClient.post<any>('/auth/login', payload)
   }
 
-  register(userRegisterData: UserAuthDto) : boolean {
+  register(userRegisterData: UserAuthDto) : Observable<any> {
     const payloadFormData = new FormData()
 
     payloadFormData.append('firstname', userRegisterData.firstname)
@@ -34,17 +34,10 @@ export class AuthService {
 
     if(userRegisterData.avatar)
       payloadFormData.append('avatar', userRegisterData.avatar, userRegisterData.avatar.name)
-    else payloadFormData.append('avarar', '')
+    else
+      payloadFormData.append('avarar', '')
 
-    this.httpClient.post<HttpResponse<any>>('/auth/register', payloadFormData)
-      .subscribe(response => {
-        if(response.status == 200)
-          return true
-
-        return false
-      })
-
-    return false
+    return this.httpClient.post<any>('/auth/register', payloadFormData)
   }
 
   renewPassword(newPassword: string) : void {

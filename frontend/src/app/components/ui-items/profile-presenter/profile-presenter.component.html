@@ -1,5 +1,17 @@
 <div class="profile-wrapper" [style.background-color]="colorValueBackground">
   <i class='bx bx-user' [style.font-size.px]="iconSize"></i>
+
   <div class="profile-content" [style.background-image]="'url('+ source +')'" [style.width.px]="size"
     [style.height.px]="size" [class.pointer]="allowCursorPointer"></div>
+
+  <!-- incase of editing requiries methods are provided in here -->
+  <div *ngIf="isEditMode" class="edit-panel" [style.width.px]="size" [style.height.px]="size">
+    <div (click)="onEdit($event)" class="edit-action">
+      <i class="ri-pencil-line"></i>
+    </div>
+
+    <div *ngIf="source" (click)="onRemove($event)" class="edit-action">
+      <i class="ri-close-line"></i>
+    </div>
+  </div>
 </div>

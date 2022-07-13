@@ -1,6 +1,11 @@
 <!-- render full dashboard only on a main route -->
 <div *ngIf="sideRoutes.includes(router.url) else mainRoute">
   <router-outlet></router-outlet>
+
+  <app-toast (showChanged)="toastVisibilityChanged($event)" [show]="toastService.isShown"
+    [toastType]="toastService.type" [message]="toastService.message" [duration]="toastService.duration"
+    [allowManualRemove]="toastService.allowManualRemove">
+  </app-toast>
 </div>
 
 <ng-template #mainRoute>
@@ -11,4 +16,9 @@
   </div>
 
   <app-footer></app-footer>
+
+  <app-toast (showChanged)="toastVisibilityChanged($event)" [show]="toastService.isShown"
+    [toastType]="toastService.type" [message]="toastService.message" [duration]="toastService.duration"
+    [allowManualRemove]="toastService.allowManualRemove">
+  </app-toast>
 </ng-template>

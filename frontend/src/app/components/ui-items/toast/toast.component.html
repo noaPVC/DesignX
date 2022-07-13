@@ -1,0 +1,11 @@
+<div class="snackbar-toast" [class.show]="show" [style.background-color]="background" [style.color]="color"
+  [style.border-color]="color">
+  <div class="content">
+    <i *ngIf="showIcon" class="{{ 'ri-'+ icon +'-line' }}"></i>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="allowManualRemove" class="close-manual" (click)="remove()">
+    <i class="ri-close-line"></i>
+  </div>
+</div>

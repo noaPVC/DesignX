@@ -8,12 +8,9 @@ import { UserService } from 'src/app/services/user/user.service'
 })
 
 export class HeaderComponent implements OnInit {
-  profileSource: string | null
   profileOptionsExpanded : boolean = false
 
-  constructor(private userService: UserService) {
-    this.profileSource = this.userService.user.avatarProfileSource
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 

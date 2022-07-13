@@ -28,8 +28,9 @@ export class UserService {
     this.updateLocalValues()
   }
 
-  // explicit data request
   requestUserData = () : Observable<any> => this.httpClient.get<any>('/user/current')
+
+  userAlreadyExists = (usernameOrEmail: string) : Observable<any> => this.httpClient.post<any>('/user/username/email/exists', { key: usernameOrEmail })
 
   updateLocalValues() : void {
     localStorage.removeItem('user')
@@ -38,8 +39,7 @@ export class UserService {
 
   dispose() : void {
     this.isLoggedIn = false
+    this.user = { firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
     localStorage.clear()
   }
-
-  // TODO: add some more functions, set profile, bio, banner, verify, etc.
 }

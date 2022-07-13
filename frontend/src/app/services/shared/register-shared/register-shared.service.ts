@@ -7,7 +7,7 @@ import { RegistrationForm } from 'src/app/models/registration.model';
 })
 export class RegisterSharedService {
   registrationData: RegistrationForm
-  profileAvatarFile: File | null
+  profileAvatarFile: File | null | undefined
 
   constructor() {
     this.registrationData = { firstname: '', lastname: '', username: '', email: '', bio: '', password: '', passwordConfirmation: '' }
@@ -15,6 +15,11 @@ export class RegisterSharedService {
   }
 
   buildUserAuthDto(): UserAuthDto  {
+    let avatarUpload = null
+
+    if(this.profileAvatarFile)
+      avatarUpload = this.profileAvatarFile
+
     return {
       firstname: this.registrationData.firstname,
       lastname: this.registrationData.lastname,
@@ -22,7 +27,12 @@ export class RegisterSharedService {
       email: this.registrationData.email,
       bio: this.registrationData.bio,
       password: this.registrationData.password,
-      avatar: this.profileAvatarFile
+      avatar: avatarUpload
     }
+  }
+
+  dispose() {
+    this.registrationData = { firstname: '', lastname: '', username: '', email: '', bio: '', password: '', passwordConfirmation: '' }
+    this.profileAvatarFile = null
   }
 }

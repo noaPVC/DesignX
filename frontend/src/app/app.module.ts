@@ -30,6 +30,8 @@ import { ValidationFeedbackLabelComponent } from './components/ui-items/validati
 import { CallInterceptorService } from './services/web-services/call-interceptor.service';
 import { LoaderComponent } from './components/ui-items/loader/loader.component';
 import { RegisterSharedService } from './services/shared/register-shared/register-shared.service';
+import { ToastComponent } from './components/ui-items/toast/toast.component';
+import { ToastService } from './services/notification/toast/toast.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { RegisterSharedService } from './services/shared/register-shared/registe
     ImageUrlSourcePipe,
     CheckboxComponent,
     ValidationFeedbackLabelComponent,
-    LoaderComponent
+    LoaderComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

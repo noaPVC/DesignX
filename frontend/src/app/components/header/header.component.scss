@@ -21,7 +21,7 @@ header {
 }
 
 .logo img {
-  width: 60px;
+  width: 50px;
   margin: .35rem 0;
 }
 
@@ -50,16 +50,23 @@ header {
   font-size: 1.5em;
   cursor: pointer;
   color: var(--primary-color);
-  padding: 8px 8px 2px 8px;
+
+  width: 39px;
+  height: 39px;
+
   border-radius: 50%;
   background-color: var(--icon-background-color);
   transition: margin 100ms ease-in-out;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .links ul li.active .link-icon {
   color: white;
   background-color: var(--primary-color);
   box-shadow: var(--primary-color) 0px 0px 5px 0px, var(--primary-color) 0px 0px 1px 0px;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   transition: all 0.3s ease-in-out;
 }

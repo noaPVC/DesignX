@@ -13,10 +13,9 @@ export class ProfileDropdownComponent implements OnInit {
   @Input() dropdownActive : boolean = false;
   @Output() dropdownActiveChanged = new EventEmitter<boolean>();
 
-  // dependend on account-info-wrapper
   user: User
 
-  constructor(userService: UserService, private authService: AuthService) {
+  constructor(private userService: UserService, private authService: AuthService) {
     this.user = userService.user
   }
 
