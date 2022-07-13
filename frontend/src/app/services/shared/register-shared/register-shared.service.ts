@@ -6,6 +6,10 @@ import { RegistrationForm } from 'src/app/models/registration.model';
   providedIn: 'root'
 })
 export class RegisterSharedService {
+  // caching values so they don't have to be validated each step cycle
+  username: string = ''
+  email: string = ''
+
   registrationData: RegistrationForm
   profileAvatarFile: File | null | undefined
 
@@ -29,6 +33,20 @@ export class RegisterSharedService {
       password: this.registrationData.password,
       avatar: avatarUpload
     }
+  }
+
+  usernameEmailUnchanged(username: string, email: string) {
+    if(this.username == username && this.email == email) return true
+
+    this.username = username
+    this.email = email
+
+    return false
+  }
+
+  resetUsernameEmail() {
+    this.username = ''
+    this.email = ''
   }
 
   dispose() {

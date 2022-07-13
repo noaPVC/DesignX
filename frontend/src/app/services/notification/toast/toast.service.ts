@@ -5,11 +5,11 @@ import { ToastType } from 'src/app/enums/toast-type.enum';
   providedIn: 'root'
 })
 export class ToastService {
-  isShown: boolean = false
   type: ToastType = ToastType.Message
   message: string = ''
   allowManualRemove: boolean = true
   duration: number = 3000
+  isShown: boolean = false
 
   constructor() { }
 
@@ -19,5 +19,9 @@ export class ToastService {
     this.allowManualRemove = allowManualRemove
     this.duration = duration
     this.isShown = true
+  }
+
+  shownChanged(args: boolean) {
+    this.isShown = args
   }
 }

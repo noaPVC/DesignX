@@ -34,7 +34,7 @@
       <div *ngIf="registrationStep == 2" class="profile-section">
         <div class="image-selector-container">
           <app-profile-presenter [source]="avatarSourceUrl" [size]="170" [iconSize]="70" [allowCursorPointer]="true"
-            [isEditMode]="true" (presenterClicked)="fileupload.click()" (imageRemoved)="removedImage()">
+            [isEditMode]="true" (imageEdited)="fileupload.click()" (imageRemoved)="removedImage()">
           </app-profile-presenter>
 
           <input type="file" hidden (change)="handleAvatarFileUpload($event)" [multiple]="false" #fileupload>

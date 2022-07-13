@@ -1,13 +1,12 @@
 - implement theming system, as well as use app configs
 - dashboard and implement more fucntions as well as work on services
 - remember me function in login
-- checkout behaviour subject rxjs
+- rework scrollbar on theme change
 
 - find better way to deal with validation (make validation services)
 - add profile image resizer on image editing (make popup component)
 - write custom validators for inputs (username/exists validator/email...)
-- show registration result on success, as well as on error (check observable error/catch)
-- possibly add animations between register steps
+- tooltip on inner app icons (navigation => home, explore, gallery etc.)
 
-- Text to use bio based:
+- Text to use bio based... sample use on register
 - I am 17 years old, and currently studying software engineering at HTL-Spengergasse, in Vienna. I love to code and being able to take on new challenges. A long term goal of mine is to learn as much as possible – stretch that horizon.

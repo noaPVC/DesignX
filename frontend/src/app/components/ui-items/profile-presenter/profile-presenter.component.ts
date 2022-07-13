@@ -17,8 +17,9 @@ export class ProfilePresenterComponent implements OnInit, OnChanges {
   @Input() allowCursorPointer: boolean = false
   @Input() isEditMode: boolean = false
 
-  @Output() presenterClicked: EventEmitter<void> = new EventEmitter<void>()
+  @Output() imageEdited: EventEmitter<void> = new EventEmitter<void>()
   @Output() imageRemoved: EventEmitter<void> = new EventEmitter<void>()
+  @Output() presenterClicked: EventEmitter<void> = new EventEmitter<void>()
 
   constructor(private userService: UserService) {}
 
@@ -46,12 +47,12 @@ export class ProfilePresenterComponent implements OnInit, OnChanges {
     this.colorValueBackground = this.source && !this.source.endsWith('null') ? '#0000' : this.savedBackgroundColor
   }
 
-  onEdit(event: any) {
+  edit(event: any) {
     event.stopPropagation()
-    this.onClick()
+    this.imageEdited.emit()
   }
 
-  onRemove(event: any) {
+  remove(event: any) {
     event.stopPropagation()
     this.imageRemoved.emit()
   }

@@ -49,11 +49,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.authService.register(user).subscribe(result => {
       if(!result.error) {
         this.router.navigateByUrl('/authenticate/login')
-        this.toastService.new(ToastType.Success, 'Account was successfully created!', true)
+        this.toastService.new(ToastType.Success, 'Account was successfully created!', false)
         return
       }
 
-      this.toastService.new(ToastType.Error, 'Something went wrong, try again later...', true)
+      this.router.navigateByUrl('/authenticate/login')
+      this.toastService.new(ToastType.Error, 'Something went wrong, try again later...', false)
     })
   }
 
@@ -69,19 +70,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
       const username = this.signUpForm.get('username')?.value
       const email = this.signUpForm.get('email')?.value
 
-      this.userService.userAlreadyExists(username).subscribe(result => {
-        if(result.exists) {
-          this.registrationStep = 1
-          return this.issueError(`User with username "${username}", already exists..`)
-        }
-      })
+      if(!this.registerSharedService.usernameEmailUnchanged(username, email)){
+        this.userService.userAlreadyExists(username).subscribe(result => {
+          if(result.exists) {
+            this.registrationStep = 1
+            this.registerSharedService.resetUsernameEmail()
+            return this.issueError(`User with username "${username}", already exists..`)
+          }
+        })
 
-      this.userService.userAlreadyExists(email).subscribe(result => {
-        if(result.exists) {
-          this.registrationStep = 1
-          return this.issueError(`User with email "${email}", already exists..`)
-        }
-      })
+        this.userService.userAlreadyExists(email).subscribe(result => {
+          if(result.exists) {
+            this.registrationStep = 1
+            this.registerSharedService.resetUsernameEmail()
+            return this.issueError(`User with email "${email}", already exists..`)
+          }
+        })
+      }
 
       this.clearError()
       this.registrationStep = 2
@@ -141,8 +146,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if(invalidControls.length >= 2)
       this.issueError('Fields cannot be empty!')
     else if(invalidControls.length == 1) {
-      if(this.getControlError(invalidControls[0], 'required'))
-        this.issueError('Field cannot be empty!')
+      if(this.getControlError(invalidControls[0], 'required')) this.issueError('Field cannot be empty!')
     }
 
     if(this.getControlError('firstname', 'minlength'))

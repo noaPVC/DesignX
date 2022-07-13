@@ -1,13 +1,20 @@
+.snackbar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  position: fixed;
+  bottom: 0;
+}
 
 .snackbar-toast {
-  left: 50%;
   bottom: 30px;
   position: fixed;
+  min-width: 250px;
 
   font-family: 'Montserrat', sans-serif;
   visibility: hidden;
-  min-width: 300px;
-  margin-left: -150px;
   background-color: var(--background-color);
 
   color: var(--primary-color);
@@ -43,6 +50,7 @@
   height: 30px;
   width: 30px;
   cursor: pointer;
+  border-radius: 3px;
 
   display: flex;
   justify-content: center;
@@ -51,6 +59,7 @@
 
 .close-manual:hover {
   opacity: .8;
+  background-color: var(--primary-thin);
 
   transition: opacity 200ms ease;
 }
@@ -84,5 +93,41 @@
   to {
     bottom: 0;
     opacity: 0;
+  }
+}
+
+/* media queries for responsiveness */
+
+@media only screen and (max-width: 500px) {
+  .snackbar-toast {
+    width: 100%;
+    border: none;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    bottom: 0;
+    border-radius: 0;
+  }
+
+  @keyframes fadein {
+    from {
+      bottom: -30px;
+      opacity: 0;
+    }
+
+    to {
+      bottom: 0;
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeout {
+    from {
+      bottom: 0;
+      opacity: 1;
+    }
+
+    to {
+      bottom: -30px;
+      opacity: 0;
+    }
   }
 }

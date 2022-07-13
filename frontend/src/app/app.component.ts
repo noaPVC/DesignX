@@ -1,5 +1,6 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { Router, RouterOutlet } from '@angular/router'
+import { ToastType } from './enums/toast-type.enum';
 import { ToastService } from './services/notification/toast/toast.service';
 
 @Component({
@@ -18,13 +19,13 @@ export class AppComponent implements OnInit, AfterContentChecked {
     '/user/account',
     '/user/settings',
     '/**'
-  ];
+  ]
 
   ngOnInit() : void {}
 
   // prevent outlet from passing animation on non existing route data/content
   ngAfterContentChecked(): void {
-    this.changeRef.detectChanges();
+    this.changeRef.detectChanges()
   }
 
   // definitons concerning router outlet animations
@@ -33,9 +34,5 @@ export class AppComponent implements OnInit, AfterContentChecked {
       return outlet.activatedRoute.snapshot.url
 
     return null
-  }
-
-  toastVisibilityChanged(args: boolean) {
-    this.toastService.isShown = args
   }
 }

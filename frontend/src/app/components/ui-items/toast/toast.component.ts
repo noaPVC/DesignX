@@ -23,6 +23,21 @@ export class ToastComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
+    this.toastSelect()
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.show) {
+      setTimeout(() => {
+        this.show = false
+        this.showChanged.emit(false)
+      }, this.duration)
+
+      this.toastSelect()
+    }
+  }
+
+  toastSelect() {
     switch (this.toastType) {
       case ToastType.Message:
         this.showIcon = false
@@ -57,15 +72,6 @@ export class ToastComponent implements OnInit, OnChanges {
         this.color = 'var(--primary-error)'
         this.background = 'var(--primary-error-background)'
         break;
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if(this.show) {
-      setTimeout(() => {
-        this.show = false
-        this.showChanged.emit(false)
-      }, this.duration)
     }
   }
 
