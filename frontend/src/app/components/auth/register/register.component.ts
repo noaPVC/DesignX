@@ -5,10 +5,12 @@ import { Router } from '@angular/router';
 import { LoaderType } from 'src/app/enums/loader.enum';
 import { ToastType } from 'src/app/enums/toast-type.enum';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { FileService } from 'src/app/services/file/file.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 import { ToastService } from 'src/app/services/notification/toast/toast.service';
 import { RegisterSharedService } from 'src/app/services/shared/register-shared/register-shared.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { ValidationService } from 'src/app/services/validation/validation.service';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +28,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   avatarSourceUrl: string | undefined | null = null
 
   constructor(private titleService: Title, private authService: AuthService, private userService: UserService, public loadingService: LoadingService,
-    private router: Router, private registerSharedService: RegisterSharedService, private toastService: ToastService) {}
+                private router: Router, private registerSharedService: RegisterSharedService, private toastService: ToastService,
+                  private fileService: FileService, private validationService: ValidationService) {}
 
   ngOnInit(): void {
     this.titleService.setTitle('DesignX - Register')
@@ -93,13 +96,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       return
     }
 
-    // valdation passed
     this.issueSignUp()
   }
 
   back() {
     this.clearError()
-
     if(this.registrationStep == 2)
       return this.registrationStep = 1
 
@@ -107,27 +108,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   handleAvatarFileUpload(event: any) {
-    const files: FileList = event.target.files
-
-    // select at least one file
-    if(files.length <= 0)
-      return this.issueError('No file selected.')
-
-    // only images
-    const file: File | null = files.item(0)
-    if (!file?.type.match(/image\/*/))
-      return this.issueError('Only image files are allowed!')
-
-    // max file size 1 MB
-    if(file.size > 1000000)
-      return this.issueError('File is too large, make sure it is smaller than 1MB!')
-
+    const data = this.fileService.imageUpload(event.target.files, 1)
+    if(data.error) return this.issueError(data.message)
     this.clearError()
+
+    const file = data.file
     this.registerSharedService.profileAvatarFile = file
 
     const reader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onload = (_event) => this.avatarSourceUrl = reader.result?.toString()
+    reader.onload = (e) => this.avatarSourceUrl = reader.result?.toString()
   }
 
   removedImage() {
@@ -135,57 +125,39 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.avatarSourceUrl = null
   }
 
-  // error handlers and validators
-
   handlePreErrors() {
     this.clearError()
 
-    const invalidControls = this.findInvalidControls(this.signUpForm)
+    const invalidControls = this.validationService.findInvalidControls(this.signUpForm)
     invalidControls.forEach((control: string) => this.signUpForm.controls[control].markAsTouched())
 
     if(invalidControls.length >= 2)
       this.issueError('Fields cannot be empty!')
     else if(invalidControls.length == 1) {
-      if(this.getControlError(invalidControls[0], 'required')) this.issueError('Field cannot be empty!')
+      if(this.validationService.getControlError(this.signUpForm, invalidControls[0], 'required'))
+        this.issueError('Field cannot be empty!')
     }
 
-    if(this.getControlError('firstname', 'minlength'))
+    if(this.validationService.getControlError(this.signUpForm, 'firstname', 'minlength'))
       this.issueError('Firstname too short.')
 
-    if(this.getControlError('lastname', 'minlength'))
+    if(this.validationService.getControlError(this.signUpForm, 'lastname', 'minlength'))
       this.issueError('Lastname too short.')
 
-    if(this.getControlError('username', 'minlength'))
+    if(this.validationService.getControlError(this.signUpForm, 'username', 'minlength'))
       this.issueError('Your username is too short, it has to be at least 5 characters long.')
 
-    if(this.getControlError('email', 'minlength'))
+    if(this.validationService.getControlError(this.signUpForm, 'email', 'minlength'))
       this.issueError('Your email is too short')
 
-    if(this.getControlError('email', 'email'))
+    if(this.validationService.getControlError(this.signUpForm, 'email', 'email'))
       this.issueError('Your email seems to be invalid..')
 
-    if(this.getControlError('password', 'minlength'))
+    if(this.validationService.getControlError(this.signUpForm, 'password', 'minlength'))
       this.issueError('Password has to be at least 8 characters long.')
 
-    if(this.getControlError('passwordConfirmation', 'minlength'))
+    if(this.validationService.getControlError(this.signUpForm, 'passwordConfirmation', 'minlength'))
       this.issueError('Password Confirmation has to be at least 8 characters long.')
-  }
-
-  findInvalidControls(form: FormGroup) {
-    const invalid = [];
-    const controls = form.controls;
-
-    for (const name in controls) {
-        if (controls[name].invalid) {
-            invalid.push(name);
-        }
-    }
-
-    return invalid;
-  }
-
-  getControlError(controlName: string, error: string) {
-    return this.signUpForm.controls[controlName].getError(error)
   }
 
   issueError(message: string) {

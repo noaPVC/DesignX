@@ -11,7 +11,7 @@ export class ToastService {
   duration: number = 3000
   isShown: boolean = false
 
-  constructor() { }
+  constructor() {}
 
   new(type: ToastType, message: string, allowManualRemove: boolean = true, duration: number = 3000) {
     this.type = type

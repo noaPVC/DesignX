@@ -30,6 +30,7 @@ export class ProfilePresenterComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     const savedColor = localStorage.getItem('sharedAccountColor')
+
     if(!savedColor)
       return localStorage.setItem('sharedAccountColor', this.colorValueBackground)
 

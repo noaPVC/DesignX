@@ -14,5 +14,4 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle(`DesignX - ${this.userService.user.username}`)
   }
-
 }

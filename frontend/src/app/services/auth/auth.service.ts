@@ -8,7 +8,6 @@ import { Observable } from 'rxjs'
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
 
   constructor(private httpClient : HttpClient, private router: Router, private userService: UserService) { }
