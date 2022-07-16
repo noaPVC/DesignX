@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('DesignX')
+
     this.tryRedirectToDashboard()
     setTimeout(() => this.loadedDelayer = true, 100)
   }
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   tryRedirectToDashboard() {
-    if(localStorage.getItem('token') && localStorage.getItem('user'))
+    if(localStorage.getItem('token'))
       this.router.navigateByUrl('/dashboard/home')
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { UserService } from '../user/user.service'
 import { UserAuthDto } from 'src/app/models/dtos/user-auth.dto'
 import { Router } from '@angular/router'
@@ -33,8 +33,6 @@ export class AuthService {
 
     if(userRegisterData.avatar)
       payloadFormData.append('avatar', userRegisterData.avatar, userRegisterData.avatar.name)
-    else
-      payloadFormData.append('avarar', '')
 
     return this.httpClient.post<any>('/auth/register', payloadFormData)
   }

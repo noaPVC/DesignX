@@ -12,11 +12,8 @@ const mapper_service = require('../services/response_mapper.service')
 router.get('/current', authenticateToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user._id })
 
-    if (!user)
-        return res.status(400).json({ error: true, message: 'User does not exist!' })
-
     const userResponse = mapper_service.userDataResponse(user)
-    res.status(200).json(userResponse)
+    res.status(200).json({ error: false, user: userResponse })
 })
 
 // validation exists on user signup

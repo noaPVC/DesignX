@@ -20,7 +20,7 @@ module.exports = {
             description: object.description,
             tags: object.tags,
             creatorImageSource: creator.avatarProfileSource,
-            creatorName: `${creator.lastname} ${creator.firstname}`,
+            creatorName: creator.username,
             _userId: creator._id
         }
     },
@@ -57,6 +57,7 @@ module.exports = {
 
     userDataResponse: function (user) {
         return {
+            _id: user._id,
             firstname: user.firstname,
             lastname: user.lastname,
             username: user.username,

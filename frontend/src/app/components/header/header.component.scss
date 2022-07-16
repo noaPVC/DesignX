@@ -70,3 +70,36 @@ header {
   margin-bottom: 3px;
   transition: all 0.3s ease-in-out;
 }
+
+/* tooltip definitions */
+
+.links ul li .tooltip {
+  position: absolute;
+  text-align: center;
+
+  min-width: 130px;
+  margin-top: 25px;
+  margin-left: -45px;
+
+  padding: .5rem;
+  background-color: var(--icon-background-color);
+  color: var(--primary-color);
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: .9em;
+
+  user-select: none;
+  pointer-events: none;
+  opacity: 0;
+
+  transition: opacity .3s ease-out;
+}
+
+.links ul li:hover .tooltip {
+  opacity: 1;
+
+  transition: opacity .3s ease-in-out;
+}
+
+
+

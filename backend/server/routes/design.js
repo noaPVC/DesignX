@@ -51,7 +51,7 @@ router.post('/new', [authenticateToken, file_service.upload.single('cover')], as
     design.save()
         .then(() => {
             file_service.move(design._id, uuid, 'designs')
-            res.sendStatus(200)
+            res.status(200).json({ error: false, message: 'Design was created!' })
         })
         .catch(err => {
             file_service.clearTemp()
@@ -77,7 +77,7 @@ router.delete('/remove/:id', authenticateToken, async (req, res) => {
     if (design._userId == userId) {
         await Design.findByIdAndDelete(parsedId)
         file_service.deleteContentById(parsedId, 'designs')
-        return res.sendStatus(200)
+        return res.status(200).json({ error: false, message: 'Design deleted!' })
     }
 
     res.status(401).json({ error: true, message: 'Unauthorized!' })
@@ -100,21 +100,23 @@ router.put('/update/:id', authenticateToken, async (req, res) => {
 
     if (design._userId == userId) {
         await Design.findByIdAndUpdate(parsedId, data)
-        return res.sendStatus(200)
+        return res.status(200).json({ error: false, message: 'Design was updated!' })
     }
 
     res.status(401).json({ error: true, message: 'Unauthorized!' })
 })
 
-router.post('/save/:id', authenticateToken, async (req, res) => {
+router.get('/save/:id', authenticateToken, async (req, res) => {
     const parsedId = req.params.id
     const userId = req.user._id
+
+    if (parsedId == userId) return res.status(400).json({ error: true, message: 'Error bookmarking own design.' })
 
     if (!mongoose.isValidObjectId(parsedId)) return res.status(400).json({ error: true, message: 'Invalid id!' })
 
     const savedDesign = new Saved(parsedId, userId)
     savedDesign.save()
-        .then(() => res.sendStatus(200))
+        .then(() => res.status(200).json({ error: false, message: 'Saved design.' }))
         .catch(err => res.status(500).json({ error: true, message: 'Insertion failed.' }))
 })
 

@@ -10,8 +10,8 @@ module.exports = {
         const generatedRefreshToken = issueRefreshToken(user._id, user.email)
 
         return {
-            _id: user._id,
             user: {
+                _id: user._id,
                 firstname: user.firstname,
                 lastname: user.lastname,
                 username: user.username,
@@ -67,7 +67,7 @@ function issueToken(userId, identity) {
         issuer: 'DesignX corp',
         subject: identity,
         audience: 'http://designx.com',
-        expiresIn: '15min'
+        expiresIn: '10min'
     }
 
     return jwt.sign({

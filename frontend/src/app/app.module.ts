@@ -65,8 +65,8 @@ import { ToastService } from './services/notification/toast/toast.service';
     BrowserAnimationsModule
   ],
   providers: [
-    UserService,
     AuthService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

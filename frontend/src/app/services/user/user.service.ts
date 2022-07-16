@@ -8,38 +8,34 @@ import { User } from 'src/app/models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  user: User = { firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
+  user: User = { _id: null, firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
   isLoggedIn: boolean = false
 
   constructor(private httpClient : HttpClient, private router: Router) {
-    if(localStorage.getItem('token') && localStorage.getItem('user')) {
-      this.user = JSON.parse(localStorage.getItem('user') ?? '')
-      return
+    if(localStorage.getItem('token')) {
+      // check token validity
+      this.checkSessionValid().subscribe(result => {
+        this.user = result.user
+        this.router.navigateByUrl('/authenticate/login')
+      }, err => {
+        this.dispose()
+        this.router.navigateByUrl('/authenticate/login')
+      })
     }
-
-    this.router.navigateByUrl('/authenticate/login')
-    this.dispose()
   }
 
   initialize(user: User) : void {
     this.user = user
     this.isLoggedIn = true
-
-    this.updateLocalValues()
   }
 
-  requestUserData = () : Observable<any> => this.httpClient.get<any>('/user/current')
+  checkSessionValid = () : Observable<any> => this.httpClient.get<any>('/user/current')
 
   userAlreadyExists = (usernameOrEmail: string) : Observable<any> => this.httpClient.post<any>('/user/username/email/exists', { key: usernameOrEmail })
 
-  updateLocalValues() : void {
-    localStorage.removeItem('user')
-    localStorage.setItem('user', JSON.stringify(this.user))
-  }
-
   dispose() : void {
     this.isLoggedIn = false
-    this.user = { firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
+    this.user = { _id: null, firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
     localStorage.clear()
   }
 }

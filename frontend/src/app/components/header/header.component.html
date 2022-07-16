@@ -1,3 +1,4 @@
+<!-- TODO: tooltips on each icon -->
 <header>
   <div class="logo" routerLink="/dashboard/home">
     <img src="/assets/icon.png" alt="DesignX Logo">
@@ -10,22 +11,26 @@
         <div class="link-icon">
           <i class="ri-home-5-line"></i>
         </div>
-      </li> <!-- home where feed is loaded -->
+        <span class="tooltip">Home</span>
+      </li>
       <li routerLink="/dashboard/saved" routerLinkActive="active">
         <div class="link-icon">
           <i class='bx bx-bookmark'></i>
         </div>
-      </li> <!-- bookmarked or saved -->
+        <span class="tooltip">Saved Designs</span>
+      </li>
       <li routerLink="/dashboard/explore" routerLinkActive="active">
         <div class="link-icon">
           <i class="ri-lightbulb-line"></i>
         </div>
-      </li> <!-- bulb or ideas exploring -->
+        <span class="tooltip">Explore Designs</span>
+      </li>
       <li routerLink="/dashboard/gallery" routerLinkActive="active">
         <div class="link-icon">
           <i class='bx bxs-dashboard'></i>
         </div>
-      </li> <!-- gallery, your posts.. uploads -->
+        <span class="tooltip">Gallery</span>
+      </li>
     </ul>
 
     <app-profile-presenter (presenterClicked)="showProfileOptions()" [allowCursorPointer]="true" [size]="36">
