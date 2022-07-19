@@ -21,7 +21,6 @@ import { AuthService } from './services/auth/auth.service';
 import { AccountComponent } from './components/pages/user/account/account.component';
 import { ProfilePresenterComponent } from './components/ui-items/profile-presenter/profile-presenter.component';
 import { InterceptorService } from './services/web-services/client/interceptor.service';
-import { environment } from 'src/environments/environment';
 import { FullnamePipe } from './pipes/user/fullname/fullname.pipe';
 import { ImageUrlSourcePipe } from './pipes/user/image-url-source/image-url-source.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,9 +28,10 @@ import { CheckboxComponent } from './components/ui-items/checkbox/checkbox.compo
 import { ValidationFeedbackLabelComponent } from './components/ui-items/validation-feedback-label/validation-feedback-label.component';
 import { CallInterceptorService } from './services/web-services/call-interceptor.service';
 import { LoaderComponent } from './components/ui-items/loader/loader.component';
-import { RegisterSharedService } from './services/shared/register-shared/register-shared.service';
 import { ToastComponent } from './components/ui-items/toast/toast.component';
-import { ToastService } from './services/notification/toast/toast.service';
+import { DateAgoPipe } from './pipes/dateAgo/date-ago.pipe';
+import { DashboardComponent } from './components/skeletons/dashboard/dashboard.component';
+import { RecentComponent } from './components/pages/home/recent/recent.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,10 @@ import { ToastService } from './services/notification/toast/toast.service';
     CheckboxComponent,
     ValidationFeedbackLabelComponent,
     LoaderComponent,
-    ToastComponent
+    ToastComponent,
+    DateAgoPipe,
+    DashboardComponent,
+    RecentComponent
   ],
   imports: [
     BrowserModule,

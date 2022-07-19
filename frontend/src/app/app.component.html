@@ -9,16 +9,22 @@
 </div>
 
 <ng-template #mainRoute>
-  <app-header></app-header>
-
-  <div class="root-main-content">
-    <router-outlet></router-outlet>
+  <div *ngIf="(loadingService.dashboardLoading | async) else dashboard">
+    <dashboard-skeleton></dashboard-skeleton>
   </div>
 
-  <app-footer></app-footer>
+  <ng-template #dashboard>
+    <app-header></app-header>
 
-  <app-toast (showChanged)="toastService.shownChanged($event)" [show]="toastService.isShown"
-    [toastType]="toastService.type" [message]="toastService.message" [duration]="toastService.duration"
-    [allowManualRemove]="toastService.allowManualRemove">
-  </app-toast>
+    <div class="root-main-content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <app-footer></app-footer>
+
+    <app-toast (showChanged)="toastService.shownChanged($event)" [show]="toastService.isShown"
+      [toastType]="toastService.type" [message]="toastService.message" [duration]="toastService.duration"
+      [allowManualRemove]="toastService.allowManualRemove">
+    </app-toast>
+  </ng-template>
 </ng-template>

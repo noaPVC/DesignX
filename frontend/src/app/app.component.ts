@@ -1,6 +1,7 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { Router, RouterOutlet } from '@angular/router'
 import { ToastType } from './enums/toast-type.enum';
+import { LoadingService } from './services/loading/loading.service';
 import { ToastService } from './services/notification/toast/toast.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { ToastService } from './services/notification/toast/toast.service';
 
 export class AppComponent implements OnInit, AfterContentChecked {
 
-  constructor(public router : Router, private changeRef: ChangeDetectorRef, public toastService: ToastService) {}
+  constructor(public router : Router, private changeRef: ChangeDetectorRef, public toastService: ToastService, public loadingService: LoadingService) {}
 
   sideRoutes : string[] = [
     '/authenticate/login',

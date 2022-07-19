@@ -10,7 +10,7 @@ import { LoadingService } from 'src/app/services/loading/loading.service';
 import { ToastService } from 'src/app/services/notification/toast/toast.service';
 import { RegisterSharedService } from 'src/app/services/shared/register-shared/register-shared.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { ValidationService } from 'src/app/services/validation/validation.service';
+import { ValidationService } from 'src/app/services/shared/validation/validation.service';
 
 @Component({
   selector: 'app-register',

@@ -1,5 +1,5 @@
 <div class="login-wrapper">
-  <app-loader [loaderType]="loader" *ngIf="(loadingService.isLoading | async) else loginView"></app-loader>
+  <app-loader [loaderType]="loader" *ngIf="(loadingService.authLoading | async) else loginView"></app-loader>
 
   <ng-template #loginView>
     <div class="login-container" [class.loaded]="loadedDelayer">

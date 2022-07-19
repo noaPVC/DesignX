@@ -71,6 +71,32 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
+/* add new design button */
+
+.add-new-design {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: .1px solid var(--icon-background-color);
+
+  font-size: 1.7em;
+  padding: .1rem;
+  color: var(--primary-color);
+
+  cursor: pointer;
+  transition: background-color .3s ease;
+}
+
+.add-new-design:hover {
+  background-color: var(--icon-background-color);
+
+  transition: background-color .3s ease;
+}
+
 /* tooltip definitions */
 
 .links ul li .tooltip {
@@ -100,6 +126,5 @@ header {
 
   transition: opacity .3s ease-in-out;
 }
-
 
 

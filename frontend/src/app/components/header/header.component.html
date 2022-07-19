@@ -1,4 +1,3 @@
-<!-- TODO: tooltips on each icon -->
 <header>
   <div class="logo" routerLink="/dashboard/home">
     <img src="/assets/icon.png" alt="DesignX Logo">
@@ -6,6 +5,10 @@
   </div>
 
   <div class="links">
+    <div (click)="newDesign()" class="add-new-design">
+      <i class='bx bx-plus'></i>
+    </div>
+
     <ul>
       <li routerLink="/dashboard/home" routerLinkActive="active">
         <div class="link-icon">

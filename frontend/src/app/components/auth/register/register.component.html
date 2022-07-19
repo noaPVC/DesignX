@@ -1,5 +1,5 @@
 <div class="register-wrapper">
-  <app-loader [loaderType]="loader" *ngIf="(loadingService.isLoading | async) else signUpView"></app-loader>
+  <app-loader [loaderType]="loader" *ngIf="(loadingService.authLoading | async) else signUpView"></app-loader>
 
   <ng-template #signUpView>
     <div class="register-container">

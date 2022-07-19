@@ -12,7 +12,7 @@ export class DesignService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getDesign(id: string): Observable<any> {
+  getDesign(id: string): Observable<Design> {
     return this.httpClient.get<Design>(`/design/${id}`)
   }
 
