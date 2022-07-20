@@ -5,13 +5,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LoadingService {
-  dashboardLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   authLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  dashboardLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  recentsLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   constructor() { }
 
   resetSubjectBehaviours() {
-    this.dashboardLoading.next(false)
     this.authLoading.next(false)
+    this.dashboardLoading.next(false)
+    this.recentsLoading.next(false)
   }
 }

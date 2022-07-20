@@ -1,0 +1,48 @@
+
+.container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  cursor: pointer;
+
+  transition: gap 200ms ease-out;
+}
+
+.cover {
+  max-width: 100%;
+  border-radius: 10px 10px 3px 3px;
+}
+
+.info {
+  border: 1px solid var(--primary-thin);
+  border-radius: 3px 3px 7px 7px;
+}
+
+.info .caption {
+  font-size: .95em;
+  color: var(--primary-color);
+  margin: .7rem;
+
+  background-color: var(--primary-thin);
+  width: min-content;
+  max-width: 50%;
+  padding: .4rem .6rem;
+  border-radius: 3px;
+}
+
+
+.container:hover {
+  gap: 0;
+  transition: gap 200ms ease;
+}
+
+.container:hover .info {
+  border-top: none;
+  border-radius: 0 0 7px 7px;
+}
+
+.container:hover .cover {
+  border-radius: 10px 10px 0 0;
+  transition: border-radius 200ms ease;
+}

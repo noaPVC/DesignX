@@ -1,0 +1,46 @@
+
+.home-recent-wrapper {
+  display: flex;
+  justify-content: center;
+  font-family: 'Varela Round', sans-serif;
+}
+
+/* recent items container grid */
+
+.recents-container {
+  width: 100%;
+}
+
+/* spacing for recents loader*/
+
+app-loader {
+  margin-top: 3rem;
+}
+
+/* placeholder for no items definitions */
+
+.no-recents-placeholder  {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  opacity: .8;
+  margin-top: 3rem;
+}
+
+.no-recents-placeholder p {
+  color: var(--primary-color);
+  text-align: center;
+  font-size: .95em;
+  max-width: 400px;
+}
+
+.no-recents-placeholder .illustration {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 2rem;
+
+  background-image: url('/assets/illustrations/no_items.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}

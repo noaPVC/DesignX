@@ -21,6 +21,9 @@ export class CallInterceptorService implements HttpInterceptor {
     if(this.reqEqual(url, '/auth/login') || this.reqEqual(url, '/auth/register') || this.reqEqual(url, '/user/username/email/exists'))
       this.loadingService.authLoading.next(true)
 
+    if(this.reqEqual(url, '/designs/recent'))
+      this.loadingService.recentsLoading.next(true)
+
     return next.handle(req).pipe(finalize(() => this.loadingService.resetSubjectBehaviours()))
   }
 

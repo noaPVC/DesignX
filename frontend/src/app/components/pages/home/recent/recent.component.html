@@ -1,3 +1,14 @@
 <div class="home-recent-wrapper">
-  <!-- display last recent 5 designs here and more.. (seperated as own component partial to home)-->
+  <app-loader *ngIf="(loadingService.recentsLoading | async) else recentsContainer"></app-loader>
+
+  <ng-template #recentsContainer>
+    <div *ngIf="recents.length == 0" class="no-recents-placeholder">
+      <div class="illustration"></div>
+      <p>Items that you have published or changed recently will be displayed here..</p>
+    </div>
+
+    <div class="recents-container" *ngFor="let recent of recents">
+      <design-recent-item [item]="recent"></design-recent-item>
+    </div>
+  </ng-template>
 </div>

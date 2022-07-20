@@ -32,6 +32,7 @@ import { ToastComponent } from './components/ui-items/toast/toast.component';
 import { DateAgoPipe } from './pipes/dateAgo/date-ago.pipe';
 import { DashboardComponent } from './components/skeletons/dashboard/dashboard.component';
 import { RecentComponent } from './components/pages/home/recent/recent.component';
+import { RecentItemComponent } from './components/design/recent-item/recent-item.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { RecentComponent } from './components/pages/home/recent/recent.component
     ToastComponent,
     DateAgoPipe,
     DashboardComponent,
-    RecentComponent
+    RecentComponent,
+    RecentItemComponent
   ],
   imports: [
     BrowserModule,
