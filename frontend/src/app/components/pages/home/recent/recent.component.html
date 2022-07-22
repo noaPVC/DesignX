@@ -1,14 +1,32 @@
-<div class="home-recent-wrapper">
+<!-- section of home -->
+<div class="recent-wrapper">
   <app-loader *ngIf="(loadingService.recentsLoading | async) else recentsContainer"></app-loader>
 
+  <!-- after loading complete -->
   <ng-template #recentsContainer>
-    <div *ngIf="recents.length == 0" class="no-recents-placeholder">
+    <!-- placeholder incase recents don't exist -->
+    <div class="no-recents-placeholder" *ngIf="recents.length == 0 else items">
       <div class="illustration"></div>
       <p>Items that you have published or changed recently will be displayed here..</p>
     </div>
 
-    <div class="recents-container" *ngFor="let recent of recents">
-      <design-recent-item [item]="recent"></design-recent-item>
-    </div>
+    <!-- recents displayed -->
+    <ng-template #items>
+      <div class="recent-container">
+        <div class="decorated-section-title">
+          <i class="ri-history-line"></i>
+          <p>Recently added by you</p>
+        </div>
+
+        <div class="recents">
+          <design-recent-item *ngFor="let recent of recents" [item]="recent"></design-recent-item>
+        </div>
+
+        <a class="view-all link" (click)="navigateGallery()">
+          <p>View all</p>
+          <i class="ri-arrow-right-line"></i>
+        </a>
+      </div>
+    </ng-template>
   </ng-template>
 </div>

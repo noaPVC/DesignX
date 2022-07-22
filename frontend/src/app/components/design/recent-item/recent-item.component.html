@@ -1,7 +1,5 @@
 <div class="container">
-  <img class="cover" src="{{ item.coverImageSource | imageUrlSource }}" alt="{{ item.description }}"
-    (contextmenu)="$event.preventDefault()">
-
+  <div class="cover" [style.background-image]="'url('+ backgroundSource+')'"></div>
   <div class="info">
     <p class="caption">{{ item.caption }}</p>
   </div>

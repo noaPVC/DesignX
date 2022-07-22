@@ -33,6 +33,7 @@ import { DateAgoPipe } from './pipes/dateAgo/date-ago.pipe';
 import { DashboardComponent } from './components/skeletons/dashboard/dashboard.component';
 import { RecentComponent } from './components/pages/home/recent/recent.component';
 import { RecentItemComponent } from './components/design/recent-item/recent-item.component';
+import { MobileNavigationComponent } from './components/header/mobile-navigation/mobile-navigation.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { RecentItemComponent } from './components/design/recent-item/recent-item
     DateAgoPipe,
     DashboardComponent,
     RecentComponent,
-    RecentItemComponent
+    RecentItemComponent,
+    MobileNavigationComponent
   ],
   imports: [
     BrowserModule,

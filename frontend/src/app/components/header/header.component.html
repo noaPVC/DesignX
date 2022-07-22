@@ -1,8 +1,12 @@
 <header>
   <div class="logo" routerLink="/dashboard/home">
     <img src="/assets/icon.png" alt="DesignX Logo">
-    <p>DesignX</p>
+    <p class="brand">DesignX</p>
   </div>
+
+  <button class="mobile-navigation-toggle" (click)="toggleMobileNavigation()">
+    <i class="{{ mobileNavigationExpanded ? 'ri-close-line' : 'ri-menu-line' }}"></i>
+  </button>
 
   <div class="links">
     <div (click)="newDesign()" class="add-new-design">
@@ -43,3 +47,7 @@
 
 <app-profile-dropdown (dropdownActiveChanged)="profileOptionsChanged($event)" [dropdownActive]="profileOptionsExpanded">
 </app-profile-dropdown>
+
+<!-- on mobile frienly invoked -->
+<mobile-navigation [expanded]="mobileNavigationExpanded" (expandedChanged)="mobileNavigationStateChanged($event)">
+</mobile-navigation>

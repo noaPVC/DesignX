@@ -1,0 +1,39 @@
+<div class="mobile-navigation-backdrop" [class.active]="expanded" (click)="collapse()"></div>
+
+<div class="mobile-navigation" [class.active]="expanded">
+  <div class="account-info" routerLink="/user/account" (click)="collapse()">
+    <app-profile-presenter [iconSize]="30" [size]="50"></app-profile-presenter>
+
+    <div class="info">
+      <h4>{{ user.firstname | fullname:user.lastname }}</h4>
+      <p>{{ user.username }}</p>
+    </div>
+  </div>
+
+  <ul>
+    <li routerLink="/dashboard/home" routerLinkActive="active" (click)="collapse()">
+      <i class="ri-home-5-line"></i>
+      <span>Home</span>
+    </li>
+    <li routerLink="/dashboard/saved" routerLinkActive="active" (click)="collapse()">
+      <i class='bx bx-bookmark'></i>
+      <span>Saved Designs</span>
+    </li>
+    <li routerLink="/dashboard/explore" routerLinkActive="active" (click)="collapse()">
+      <i class="ri-lightbulb-line"></i>
+      <span>Explore Designs</span>
+    </li>
+    <li routerLink="/dashboard/gallery" routerLinkActive="active" (click)="collapse()">
+      <i class='bx bxs-dashboard'></i>
+      <span>Gallery</span>
+    </li>
+    <li routerLink="/user/settings" (click)="collapse()">
+      <i class="ri-settings-2-line"></i>
+      <span>Settings & Privacy</span>
+    </li>
+  </ul>
+
+  <button class="light-danger-button" (click)="authService.logout()">
+    <span>Logout</span>
+  </button>
+</div>

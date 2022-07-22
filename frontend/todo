@@ -1,12 +1,13 @@
 - implement theming system, as well as use app configs
 - remember me function in login
 - rework scrollbar on theme change
+- grouped profile-presenters => on user => (shared color), on random user source => random color
+- add refreshtokens intervall :/
 
-- find better way to deal with validation (make validation services)
 - add profile image resizer on image editing (make popup component)
-- write custom validators for inputs (username/exists validator/email...)
-
-- extend call-interceptor.service with multiple loader subject behaviours and change their corresponding values based on the request so the app is able to distinguish between diffrent ongoing requests and where loaders should be displayed...
+- write custom validators for inputs (username/exists validator/email..., password and confirmation equal)
+- ensure username is lowercase
+- caching system
 
 - Text to use bio based... sample use on register
 - I am 17 years old, and currently studying software engineering at HTL-Spengergasse, in Vienna. I love to code and being able to take on new challenges. A long term goal of mine is to learn as much as possible – stretch that horizon.

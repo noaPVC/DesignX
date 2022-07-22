@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -16,7 +16,12 @@ export class ProfileDropdownComponent implements OnInit {
   user: User
 
   constructor(private userService: UserService, private authService: AuthService) {
-    this.user = userService.user
+    this.user = this.userService.user
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.closeDropdown()
   }
 
   ngOnInit(): void {}

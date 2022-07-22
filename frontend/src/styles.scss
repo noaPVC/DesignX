@@ -25,7 +25,13 @@
   --font-color: black;
 
   --background-color: white;
+
   --icon-background-color: #e6e6fa;
+  --icon-background-color-hover: #e6e6fa9c;
+
+  --scrollbar-track-color: #f1f1f1;
+  --scrollbar-thumb-color: rgb(192, 192, 192);
+  --scrollbar-thumb-color-hover: rgb(179, 179, 179);
 }
 
 /* dark */
@@ -49,7 +55,13 @@
 //   --font-color: white;
 
 //   --background-color: #091828;
+
 //   --icon-background-color: rgba(0, 0, 0, 0.152);
+//   --icon-background-color-hover: rgba(0, 0, 0, 0.12);
+
+//   --scrollbar-track-color: #87a0e422;
+//   --scrollbar-thumb-color: #87A0E4;
+//   --scrollbar-thumb-color-hover: #7d94d2;
 // }
 
 /* scrollbar styling */
@@ -59,19 +71,20 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--scrollbar-track-color);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(192, 192, 192);
+  background: var(--scrollbar-thumb-color);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(179, 179, 179);
+  background: var(--scrollbar-thumb-color-hover);
 }
 
 body {
   background-color: var(--background-color);
+  overflow-x: hidden;
 }
 
 /* global inputs */
@@ -137,6 +150,25 @@ input.ng-touched.ng-invalid {
   transition: opacity .2s ease, color .3s ease;
 }
 
+/* global light danger button */
+
+.light-danger-button {
+  color: var(--primary-error);
+  background-color: var(--icon-background-color-hover);
+  border: 2px solid var(--icon-background-color);
+  border-radius: 10px;
+  padding: .7rem 1rem;
+  cursor: pointer;
+  font-size: 1em;
+
+  transition: opacity .2s ease;
+}
+
+.light-danger-button:hover {
+  opacity: .9;
+  transition: opacity .2s ease;
+}
+
 /* text area definitions */
 
 textarea {
@@ -186,4 +218,20 @@ textarea:focus {
   text-align: center;
   text-decoration: underline;
   color: var(--primary-hover);
+}
+
+/* global decorated section title */
+
+.decorated-section-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  font-size: large;
+  font-family: 'Heebo', sans-serif;
+  color: var(--primary-color);
+}
+
+.decorated-section-title i {
+  font-size: 1.3em;
 }
