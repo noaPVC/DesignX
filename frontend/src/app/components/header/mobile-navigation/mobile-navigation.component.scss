@@ -21,7 +21,6 @@
   position: fixed;
 
   background-color: var(--background-color);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-family: 'Montserrat', sans-serif;
 
   display: flex;
@@ -87,13 +86,17 @@
 }
 
 .mobile-navigation ul li.active {
-  border: none;
   background-color: var(--icon-background-color);
 }
 
 .mobile-navigation ul li:hover {
   background-color: var(--icon-background-color-hover);
   transition: background-color .1s ease;
+}
+
+
+.mobile-navigation ul li.active:hover {
+  background-color: var(--icon-background-color);
 }
 
 .mobile-navigation ul li i {

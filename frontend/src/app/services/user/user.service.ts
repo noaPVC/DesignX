@@ -9,13 +9,14 @@ import { User } from 'src/app/models/user.model';
 })
 export class UserService {
   user: User = { _id: null, firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
-  isLoggedIn: boolean = false
+  keepLoggedIn: boolean = false
 
   constructor(private httpClient : HttpClient, private router: Router) {
     if(localStorage.getItem('token')) {
       // check token validity
       this.checkSessionValid().subscribe(result => {
         this.user = result.user
+        this.keepLoggedIn = localStorage.getItem('keepLoggedIn') ? true : false
         this.router.navigateByUrl('/authenticate/login')
       }, err => {
         this.dispose()
@@ -24,17 +25,20 @@ export class UserService {
     }
   }
 
-  initialize(user: User) : void {
+  initialize(user: User, keepLoggedIn: boolean) : void {
     this.user = user
-    this.isLoggedIn = true
+    this.keepLoggedIn = keepLoggedIn
   }
 
-  checkSessionValid = () : Observable<any> => this.httpClient.get<any>('/user/current')
+  checkSessionValid() : Observable<any> {
+    return this.httpClient.get<any>('/user/current')
+  }
 
-  userAlreadyExists = (usernameOrEmail: string) : Observable<any> => this.httpClient.post<any>('/user/username/email/exists', { key: usernameOrEmail })
+  userAlreadyExists(usernameOrEmail: string) : Observable<any> {
+    return this.httpClient.post<any>('/user/username/email/exists', { key: usernameOrEmail })
+  }
 
   dispose() : void {
-    this.isLoggedIn = false
     this.user = { _id: null, firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
     localStorage.clear()
   }

@@ -54,8 +54,9 @@ export class LoginComponent implements OnInit {
 
     localStorage.setItem('token', response.accessToken)
     localStorage.setItem('refreshToken', response.refreshToken)
+    localStorage.setItem('keepLoggedIn', this.isRememberMe.toString())
 
-    this.userService.initialize(response.user)
+    this.userService.initialize(response.user, this.isRememberMe)
     this.tryRedirectToDashboard()
   }
 

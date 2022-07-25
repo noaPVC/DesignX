@@ -57,6 +57,7 @@ module.exports = {
                 accessToken: generatedAccessToken,
                 refreshToken: generatedRefreshToken
             }
+
             next()
         })
     }
@@ -67,7 +68,7 @@ function issueToken(userId, identity) {
         issuer: 'DesignX corp',
         subject: identity,
         audience: 'http://designx.com',
-        expiresIn: '10min'
+        expiresIn: '15min'
     }
 
     return jwt.sign({

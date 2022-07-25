@@ -20,8 +20,7 @@ export class MobileNavigationComponent implements OnInit {
 
   @HostListener('window:scroll')
   onScroll() {
-    if(this.expanded)
-      this.collapse()
+    this.collapse()
   }
 
   @HostListener('window:resize', ['$event'])
@@ -33,7 +32,9 @@ export class MobileNavigationComponent implements OnInit {
   ngOnInit(): void {}
 
   collapse() {
-    this.expanded = false
-    this.expandedChanged.emit(false)
+    if(this.expanded) {
+      this.expanded = false
+      this.expandedChanged.emit(false)
+    }
   }
 }

@@ -16,6 +16,7 @@ export class ProfilePresenterComponent implements OnInit, OnChanges {
   @Input() source: string | null | undefined = `${environment.baseUrl}${this.userService.user.avatarProfileSource}`
   @Input() allowCursorPointer: boolean = false
   @Input() isEditMode: boolean = false
+  @Input() isRandomBackgroundColor: boolean = false
 
   @Output() imageEdited: EventEmitter<void> = new EventEmitter<void>()
   @Output() imageRemoved: EventEmitter<void> = new EventEmitter<void>()
@@ -29,12 +30,14 @@ export class ProfilePresenterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    const savedColor = localStorage.getItem('sharedAccountColor')
+    // showing an either random bg or fitting it to the current user color
+    if(!this.isRandomBackgroundColor) {
+      const savedColor = localStorage.getItem('sharedAccountColor')
+      if(!savedColor)
+        return localStorage.setItem('sharedAccountColor', this.colorValueBackground)
 
-    if(!savedColor)
-      return localStorage.setItem('sharedAccountColor', this.colorValueBackground)
-
-    this.setSharedColor(savedColor)
+      this.setSharedColor(savedColor)
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
