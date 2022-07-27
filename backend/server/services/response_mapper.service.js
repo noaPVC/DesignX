@@ -16,26 +16,21 @@ module.exports = {
     designObjectMapper: function (object, creator) {
         // cover image is extraced in the request itself
         return {
+            _userId: creator._id,
+            creatorName: creator.username,
+            creatorImageSource: creator.avatarProfileSource,
             caption: object.caption,
             description: object.description,
-            tags: object.tags,
-            creatorImageSource: creator.avatarProfileSource,
-            creatorName: creator.username,
-            _userId: creator._id
+            tags: object.tags
         }
     },
 
     designResponseBuilder: function (object, userId) {
-        let avatarSource = null
-
-        if (object.creatorImageSource)
-            avatarSource = object.creatorImageSource
-
         return {
             metadata: {
                 _userId: object._userId,
                 createdAt: object.createdAt,
-                creatorImageSource: avatarSource,
+                creatorImageSource: object.creatorImageSource ?? null,
                 creatorName: object.creatorName,
                 hasAccess: object._userId == userId
             },
@@ -43,6 +38,8 @@ module.exports = {
             caption: object.caption,
             description: object.description,
             coverImageSource: object.coverImageSource,
+            likes: object.likes,
+            views: object.views,
             tags: object.tags
         }
     },

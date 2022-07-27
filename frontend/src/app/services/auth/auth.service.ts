@@ -42,12 +42,16 @@ export class AuthService {
 
   }
 
-  refreshToken() {
+  refreshTokens() {
     const refreshToken = localStorage.getItem('refreshToken')
-    if(!refreshToken) this.logout()
+    if(!refreshToken || !this.userService.isLoggedIn) return
 
-    // TODO: refreshtoken system as well as token system in general
-    // and user wants to be kept logged in (remember me checkbox).. then presume
+    if(!this.userService.keepLoggedIn) {
+      this.logout()
+      this.toastService.new(ToastType.Info, 'Your session ran out, please login again!', false)
+      return
+    }
+
     this.httpClient.post<any>('/auth/refreshtoken', { refreshToken: refreshToken }).subscribe(response => {
       localStorage.setItem('token', response.accessToken)
       localStorage.setItem('refreshToken', response.refreshToken)

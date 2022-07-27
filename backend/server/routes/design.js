@@ -114,10 +114,26 @@ router.get('/save/:id', authenticateToken, async (req, res) => {
 
     if (!mongoose.isValidObjectId(parsedId)) return res.status(400).json({ error: true, message: 'Invalid id!' })
 
-    const savedDesign = new Saved(parsedId, userId)
-    savedDesign.save()
+    const designExists = await Design.findOne({ _id: parsedId })
+    if (!designExists) return res.status(400).json({ error: true, message: 'Invalid id.' })
+
+    const savedExists = await Saved.findOne({ $and: [{ _designId: parsedId }, { _userId: userId }] })
+    if (savedExists) return res.status(400).json({ error: true, message: 'Design already saved!' })
+
+    new Saved({ _designId: parsedId, _userId: userId }).save()
         .then(() => res.status(200).json({ error: false, message: 'Saved design.' }))
         .catch(err => res.status(500).json({ error: true, message: 'Insertion failed.' }))
+})
+
+router.get('/unsave/:id', authenticateToken, async (req, res) => {
+    const parsedId = req.params.id
+    const userId = req.user._id
+
+    if (!mongoose.isValidObjectId(parsedId)) return res.status(400).json({ error: true, message: 'Invalid id!' })
+
+    Saved.deleteOne({ $and: [{ _designId: parsedId }, { _userId: userId }] })
+        .then(() => res.json({ error: false, message: 'Unsaved design.' }))
+        .catch(() => res.json({ error: true, message: 'Operation failed, design was not unsaved.' }))
 })
 
 module.exports = router

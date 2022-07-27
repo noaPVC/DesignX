@@ -1,12 +1,9 @@
 - implement theming system, as well as use app configs
-- remember me function in login
-- rework scrollbar on theme change
-- grouped profile-presenters => on user => (shared color), on random user source => random color
-- add refreshtokens intervall :/
-
 - add profile image resizer on image editing (make popup component)
 - write custom validators for inputs (username/exists validator/email..., password and confirmation equal)
 - ensure username is lowercase
+- implement and create subcollection: liked, implement mechanics to like/unlike
+- force user to create stronger passwords (custom validator)
 - caching system
 
 - Text to use bio based... sample use on register

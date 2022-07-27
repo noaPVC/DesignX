@@ -1,5 +1,6 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { AfterContentChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
 import { Router, RouterOutlet } from '@angular/router'
+import { environment } from 'src/environments/environment';
 import { AuthService } from './services/auth/auth.service';
 import { LoadingService } from './services/loading/loading.service';
 import { ToastService } from './services/notification/toast/toast.service';
@@ -10,7 +11,8 @@ import { ToastService } from './services/notification/toast/toast.service';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit, AfterContentChecked {
+export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
+  private refreshTokenInterval: any = setInterval(() => null, 0)
 
   constructor(public router : Router, private changeRef: ChangeDetectorRef, public toastService: ToastService, public loadingService: LoadingService,
     private authService: AuthService) {}
@@ -23,7 +25,9 @@ export class AppComponent implements OnInit, AfterContentChecked {
     '/**'
   ]
 
-  ngOnInit() : void {}
+  ngOnInit() : void {
+    this.refreshTokenInterval = setInterval(() => this.authService.refreshTokens(), environment.refreshTokensTimeSpan)
+  }
 
   // prevent outlet from passing animation on non existing route data/content
   ngAfterContentChecked(): void {
@@ -36,5 +40,9 @@ export class AppComponent implements OnInit, AfterContentChecked {
       return outlet.activatedRoute.snapshot.url
 
     return null
+  }
+
+  ngOnDestroy() : void {
+    clearInterval(this.refreshTokenInterval)
   }
 }

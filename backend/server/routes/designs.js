@@ -1,4 +1,5 @@
 const express = require('express')
+const { default: mongoose } = require('mongoose')
 const router = express.Router()
 
 const Design = require('../models/design.model')
@@ -27,7 +28,11 @@ router.get('/explore', authenticateToken, async (req, res) => {
 
 // get saved designs/creations by a user (also referred to as bookmarked designs)
 router.get('/saved', authenticateToken, async (req, res) => {
-    const savedDesigns = await Saved.find({ _userId: req.user._id })
+    const savedDesignIndexes = await Saved.find({ _userId: req.user._id })
+    const designIDs = savedDesignIndexes.map(designIndex => designIndex._designId)
+
+    let savedDesigns = await Design.find({ _id: { $in: designIDs } })
+    savedDesigns = savedDesigns.map(savedDesign => mapper_service.designResponseBuilder(savedDesign, req.user._id))
     res.status(200).json(savedDesigns)
 })
 

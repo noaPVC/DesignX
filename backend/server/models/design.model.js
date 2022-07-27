@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const DesignSchema = new mongoose.Schema({
+  _userId: {
+    type: mongoose.Types.ObjectId,
+    required: true
+  },
   caption: {
     type: String,
     trim: true,
@@ -19,6 +23,16 @@ const DesignSchema = new mongoose.Schema({
     unique: true,
     dropDups: true
   },
+  views: {
+    type: Number,
+    required: false,
+    default: 0
+  },
+  likes: {
+    type: Number,
+    required: false,
+    default: 0
+  },
   tags: {
     type: [{ type: String }],
     validate: [arrayLimit]
@@ -33,10 +47,6 @@ const DesignSchema = new mongoose.Schema({
   },
   creatorName: {
     type: String,
-    required: true
-  },
-  _userId: {
-    type: mongoose.Types.ObjectId,
     required: true
   }
 })
