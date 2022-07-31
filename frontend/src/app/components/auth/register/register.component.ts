@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   signUpForm: FormGroup = new FormGroup({})
   avatarSourceUrl: string | undefined | null = null
+  cropperImageEvent: any = ''
 
   constructor(private titleService: Title, private authService: AuthService, private userService: UserService, public loadingService: LoadingService,
                 private router: Router, private registerSharedService: RegisterSharedService, private toastService: ToastService,
@@ -58,6 +59,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
       this.router.navigateByUrl('/authenticate/login')
       this.toastService.new(ToastType.Error, 'Something went wrong, try again later...', false)
+
+      this.registerSharedService.resetUsernameEmail()
     })
   }
 
@@ -78,7 +81,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           if(result.exists) {
             this.registrationStep = 1
             this.registerSharedService.resetUsernameEmail()
-            return this.issueError(`User with username "${username}", already exists..`)
+            return this.issueError(`Username "${username}", is already taken..`)
           }
         })
 
@@ -107,22 +110,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.router.navigateByUrl('/authenticate/login')
   }
 
+  // avatar handlers
+
   handleAvatarFileUpload(event: any) {
     const data = this.fileService.imageUpload(event.target.files, 1)
     if(data.error) return this.issueError(data.message)
+
     this.clearError()
-
-    const file = data.file
-    this.registerSharedService.profileAvatarFile = file
-
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = (e) => this.avatarSourceUrl = reader.result?.toString()
+    this.cropperImageEvent = event
   }
 
+  cropperResult(event: any) {
+    this.avatarSourceUrl = event
+
+    this.fileService.urlToFile(event, 'avatar.png', 'image/png')
+      .then(file => this.registerSharedService.profileAvatarFile = file)
+  }
+
+  // image presenter remove function was triggered
   removedImage() {
-    this.registerSharedService.profileAvatarFile = null
     this.avatarSourceUrl = null
+    this.cropperImageEvent = null
+    this.registerSharedService.profileAvatarFile = null
   }
 
   handlePreErrors() {

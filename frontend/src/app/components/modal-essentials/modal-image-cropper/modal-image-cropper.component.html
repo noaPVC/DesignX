@@ -1,0 +1,17 @@
+<div class="modal-cropper-wrapper" [class.active]="modalShown">
+  <div class="modal-cropper-container">
+    <h2>
+      {{ cropperTitle }}
+    </h2>
+
+    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1"
+      [resizeToWidth]="256" [cropperMinWidth]="256" [roundCropper]="true" (imageCropped)="cropped($event)"
+      (cropperReady)="cropperReady()">
+    </image-cropper>
+
+    <div class="actions">
+      <button class="border-button" (click)="cancelAction()">Cancel</button>
+      <button class="primary-button" (click)="proceedAction()">Look's Good!</button>
+    </div>
+  </div>
+</div>

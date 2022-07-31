@@ -15,17 +15,22 @@ export class UserService {
 
   constructor(private httpClient : HttpClient, private router: Router) {
     // on browser refresh
-    if(localStorage.getItem('token')) {
+    const keepLoggedIn = JSON.parse(localStorage.getItem('keepLoggedIn') ?? 'false')
+
+    if(localStorage.getItem('token') && keepLoggedIn) {
       this.checkSessionValid().subscribe(result => {
         this.user = result.user
         this.isLoggedIn = true
-        this.keepLoggedIn = localStorage.getItem('keepLoggedIn') ? true : false
+        this.keepLoggedIn = keepLoggedIn
 
         this.router.navigateByUrl('/authenticate/login')
       }, err => {
         this.dispose()
         this.router.navigateByUrl('/authenticate/login')
       })
+    } else {
+      this.dispose()
+      this.router.navigateByUrl('/authenticate/login')
     }
   }
 

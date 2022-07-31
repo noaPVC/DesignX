@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserAuthDto } from 'src/app/models/dtos/user-auth.dto';
-import { RegistrationForm } from 'src/app/models/registration.model';
+import { RegistrationForm } from 'src/app/models/forms/registration.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class RegisterSharedService {
   profileAvatarFile: File | null | undefined
 
   constructor() {
-    this.registrationData = { firstname: '', lastname: '', username: '', email: '', bio: '', password: '', passwordConfirmation: '' }
+    this.registrationData = environment.defaults.registrationForm
     this.profileAvatarFile = null
   }
 
@@ -50,7 +51,7 @@ export class RegisterSharedService {
   }
 
   dispose() {
-    this.registrationData = { firstname: '', lastname: '', username: '', email: '', bio: '', password: '', passwordConfirmation: '' }
+    this.registrationData = environment.defaults.registrationForm
     this.profileAvatarFile = null
   }
 }

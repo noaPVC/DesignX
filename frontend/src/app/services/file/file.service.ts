@@ -8,7 +8,7 @@ export class FileService {
   constructor() { }
 
   imageUpload(files: FileList, maxMB: number) {
-    let data = { error: true, message: '', file: new File([], '') }
+    let data = { error: true, message: '' }
     const sizeLimit = maxMB * 1000000
 
     if(files.length <= 0 || files.length > 1) {
@@ -23,12 +23,17 @@ export class FileService {
     }
 
     if(file.size > sizeLimit) {
-      data.message = 'File is too large, make sure it is smaller than 1MB!'
+      data.message = `File is too large, make sure it is smaller than ${maxMB}MB!`
       return data
     }
 
     data.error = false
-    data.file = file
     return data
+  }
+
+  urlToFile(url: string, filename: string, mimeType: string) {
+    return (fetch(url)
+        .then(res => res.arrayBuffer())
+        .then(buffer => new File([buffer], filename, { type: mimeType, lastModified: Date.now() })))
   }
 }

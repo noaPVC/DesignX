@@ -47,6 +47,10 @@
         <button class="border-button" (click)="back()">{{ registrationStep == 1 ? 'Cancel' : 'Back' }}</button>
         <button class="primary-button" (click)="next()">{{ registrationStep == 1 ? 'Next' : 'Register' }}</button>
       </div>
+
+      <app-modal-image-cropper cropperTitle="Adjust your Avatar image" [imageChangedEvent]="cropperImageEvent"
+        (cropperBase64Result)="cropperResult($event)">
+      </app-modal-image-cropper>
     </div>
   </ng-template>
 </div>

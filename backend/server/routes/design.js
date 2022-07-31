@@ -6,6 +6,7 @@ const router = express.Router()
 const Design = require('../models/design.model')
 const User = require('../models/user.model')
 const Saved = require('../models/saved.model')
+const Liked = require('../models/liked.model')
 
 const { authenticateToken } = require('../services/auth.service')
 const mapper_service = require('../services/response_mapper.service')
@@ -114,9 +115,6 @@ router.get('/save/:id', authenticateToken, async (req, res) => {
 
     if (!mongoose.isValidObjectId(parsedId)) return res.status(400).json({ error: true, message: 'Invalid id!' })
 
-    const designExists = await Design.findOne({ _id: parsedId })
-    if (!designExists) return res.status(400).json({ error: true, message: 'Invalid id.' })
-
     const savedExists = await Saved.findOne({ $and: [{ _designId: parsedId }, { _userId: userId }] })
     if (savedExists) return res.status(400).json({ error: true, message: 'Design already saved!' })
 
@@ -134,6 +132,37 @@ router.get('/unsave/:id', authenticateToken, async (req, res) => {
     Saved.deleteOne({ $and: [{ _designId: parsedId }, { _userId: userId }] })
         .then(() => res.json({ error: false, message: 'Unsaved design.' }))
         .catch(() => res.json({ error: true, message: 'Operation failed, design was not unsaved.' }))
+})
+
+router.get('/like/:id', authenticateToken, async (req, res) => {
+    const parsedId = req.params.id
+    const userId = req.user._id
+
+    if (!mongoose.isValidObjectId(parsedId)) return res.status(400).json({ error: true, message: 'Invalid id!' })
+
+    const likeExists = await Liked.findOne({ $and: [{ _designId: parsedId }, { _userId: userId }] })
+    if (likeExists) return res.status(400).json({ error: true, message: 'Design already liked!' })
+
+    new Liked({ _designId: parsedId, _userId: userId }).save()
+        .then(async () => {
+            await Design.findByIdAndUpdate(_designId, { $inc: { likes: 1 } })
+            res.status(200).json({ error: false, message: 'Liked design.' })
+        })
+        .catch(() => res.status(500).json({ error: true, message: 'Update failed.' }))
+})
+
+router.get('/unlike/:id', authenticateToken, async (req, res) => {
+    const parsedId = req.params.id
+    const userId = req.user._id
+
+    if (!mongoose.isValidObjectId(parsedId)) return res.status(400).json({ error: true, message: 'Invalid id!' })
+
+    Liked.deleteOne({ $and: [{ _designId: parsedId }, { _userId: userId }] })
+        .then(async () => {
+            await Design.findByIdAndUpdate(_designId, { $inc: { likes: -1 } })
+            res.json({ error: false, message: 'Unliked design.' })
+        })
+        .catch(() => res.json({ error: true, message: 'Operation failed, design was not unliked.' }))
 })
 
 module.exports = router

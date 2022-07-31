@@ -34,6 +34,8 @@ import { DashboardComponent } from './components/skeletons/dashboard/dashboard.c
 import { RecentComponent } from './components/pages/home/recent/recent.component';
 import { RecentItemComponent } from './components/design/recent-item/recent-item.component';
 import { MobileNavigationComponent } from './components/header/mobile-navigation/mobile-navigation.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ModalImageCropperComponent } from './components/modal-essentials/modal-image-cropper/modal-image-cropper.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { MobileNavigationComponent } from './components/header/mobile-navigation
     DashboardComponent,
     RecentComponent,
     RecentItemComponent,
-    MobileNavigationComponent
+    MobileNavigationComponent,
+    ModalImageCropperComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { MobileNavigationComponent } from './components/header/mobile-navigation
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ImageCropperModule
   ],
   providers: [
     AuthService,

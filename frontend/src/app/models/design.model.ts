@@ -9,6 +9,8 @@ export interface Design {
   _id: string
   caption: string
   description: string
+  views: number
+  likes: number
   coverImageSource: string
   tags: string[]
 }

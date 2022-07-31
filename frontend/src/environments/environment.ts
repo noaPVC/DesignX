@@ -7,7 +7,9 @@ export const environment = {
   baseUrl: 'http://localhost:3000',
   refreshTokensTimeSpan: 15 * 60000,
   defaults: {
-    user: { _id: null, firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() }
+    user: { _id: null, firstname: 'User', lastname: 'Not found', email: 'usernotfound@gmail', bio: '-', avatarProfileSource: null, username: 'usernotfound', joined: new Date().toString() },
+    registrationForm: { firstname: '', lastname: '', username: '', email: '', bio: '', password: '', passwordConfirmation: '' },
+    designItem: { metadata: { _userId: 'none', createdAt: '-', creatorImageSource: 'none', creatorName: 'None', hasAccess: false }, _id: 'none', caption: 'None', description: '-', coverImageSource: 'none', likes: 0, views: 0, tags: [] }
   }
 };
 
