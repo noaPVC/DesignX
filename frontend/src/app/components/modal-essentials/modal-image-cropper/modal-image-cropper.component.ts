@@ -7,36 +7,41 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
   styleUrls: ['./modal-image-cropper.component.scss']
 })
 export class ModalImageCropperComponent implements OnInit {
-  modalShown: boolean = false
-  lastCropped: string | null | undefined = ''
+  lastCropped: string | null | undefined = null
+  isCropperReady: boolean = false
 
+  @Input() modalShown: boolean = false
   @Input() cropperTitle: string = 'Adjust your image'
-  @Input() imageChangedEvent: any = ''
+  @Input() imageChangedEvent: any = null
 
+  @Output() modalStateChanged: EventEmitter<boolean> = new EventEmitter<boolean>()
   @Output() cropperBase64Result: EventEmitter<string | null> = new EventEmitter<string | null>()
 
   constructor() { }
 
   ngOnInit(): void {}
 
+  // component library contained triggers
+
   cropped(event: ImageCroppedEvent) {
     this.lastCropped = event.base64
   }
 
   cropperReady() {
-    this.modalShown = true
+    this.isCropperReady = true
   }
 
   // action triggers
 
   proceedAction() {
     this.cropperBase64Result.emit(this.lastCropped)
-    this.imageChangedEvent = null
-    this.modalShown = false
+
+    this.modalStateChanged.emit(false)
+    this.lastCropped = null
   }
 
   cancelAction() {
-    this.imageChangedEvent = null
-    this.modalShown = false
+    this.modalStateChanged.emit(false)
+    this.lastCropped = null
   }
 }

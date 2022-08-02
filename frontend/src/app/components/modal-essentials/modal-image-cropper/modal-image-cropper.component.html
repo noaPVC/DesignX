@@ -1,11 +1,14 @@
 <div class="modal-cropper-wrapper" [class.active]="modalShown">
   <div class="modal-cropper-container">
-    <h2>
-      {{ cropperTitle }}
-    </h2>
+    <div class="info">
+      <h3>
+        {{ cropperTitle }}
+      </h3>
+      <p>Just drag and or select the part of your image in the circle below.</p>
+    </div>
 
     <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1"
-      [resizeToWidth]="256" [cropperMinWidth]="256" [roundCropper]="true" (imageCropped)="cropped($event)"
+      [resizeToWidth]="256" [cropperMinWidth]="356" [roundCropper]="true" (imageCropped)="cropped($event)"
       (cropperReady)="cropperReady()">
     </image-cropper>
 

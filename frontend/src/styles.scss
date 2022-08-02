@@ -32,6 +32,8 @@
   --scrollbar-track-color: #f1f1f1;
   --scrollbar-thumb-color: rgb(192, 192, 192);
   --scrollbar-thumb-color-hover: rgb(179, 179, 179);
+
+  --input-placeholder-color: var(--gray-color);
 }
 
 /* dark */
@@ -62,6 +64,8 @@
 //   --scrollbar-track-color: #87a0e422;
 //   --scrollbar-thumb-color: #87A0E4;
 //   --scrollbar-thumb-color-hover: #7d94d2;
+
+//   --input-placeholder-color: #3e455a;
 // }
 
 /* scrollbar styling */
@@ -103,6 +107,10 @@ input {
 
 input:focus {
   outline: none;
+}
+
+input::placeholder {
+  color: var(--input-placeholder-color);
 }
 
 input.ng-touched.ng-invalid {
@@ -183,6 +191,14 @@ textarea {
   background: none;
 }
 
+textarea:focus {
+  outline: none;
+}
+
+textarea::placeholder {
+  color: var(--input-placeholder-color);
+}
+
 textarea::-webkit-scrollbar {
   width: 4px;
 }
@@ -199,10 +215,6 @@ textarea::-webkit-scrollbar-thumb {
 
 textarea::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
-}
-
-textarea:focus {
-  outline: none;
 }
 
 /* global anchor tag style */
@@ -234,4 +246,37 @@ textarea:focus {
 
 .decorated-section-title i {
   font-size: 1.3em;
+}
+
+/* global cropper definitions and refinements */
+
+/* [!important] disadvised to use, but in this case we have to force it for the changes to take effect on the library component */
+
+image-cropper {
+  padding: 10px 10px 7px 10px !important;
+  border-radius: 3px !important;
+}
+
+.ngx-ic-overlay {
+  border-radius: 5px !important;
+}
+
+.ngx-ic-cropper.ngx-ic-round {
+  color: var(--primary-color) !important;
+}
+
+.ngx-ic-resize .ngx-ic-square {
+  background-color: var(--primary-color) !important;
+}
+
+.ngx-ic-move {
+  border: 1px solid var(--primary-color) !important;
+}
+
+.ngx-ic-cropper {
+  border: 1px solid var(--primary-color) !important;
+}
+
+.ngx-ic-overlay {
+  outline: var(--background-color) solid 100vw !important;
 }

@@ -26,7 +26,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   signUpForm: FormGroup = new FormGroup({})
   avatarSourceUrl: string | undefined | null = null
-  cropperImageEvent: any = ''
+
+  cropperImageEvent: any = null
+  cropperModalShown: boolean = false
 
   constructor(private titleService: Title, private authService: AuthService, private userService: UserService, public loadingService: LoadingService,
                 private router: Router, private registerSharedService: RegisterSharedService, private toastService: ToastService,
@@ -80,6 +82,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.userService.userAlreadyExists(username).subscribe(result => {
           if(result.exists) {
             this.registrationStep = 1
+
             this.registerSharedService.resetUsernameEmail()
             return this.issueError(`Username "${username}", is already taken..`)
           }
@@ -88,6 +91,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.userService.userAlreadyExists(email).subscribe(result => {
           if(result.exists) {
             this.registrationStep = 1
+
             this.registerSharedService.resetUsernameEmail()
             return this.issueError(`User with email "${email}", already exists..`)
           }
@@ -118,6 +122,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.clearError()
     this.cropperImageEvent = event
+    this.cropperModalShown = true
+  }
+
+  // image presenter remove function was triggered
+
+  removedImage(fileuploadInput: any) {
+    fileuploadInput.value = null
+    this.avatarSourceUrl = null
+    this.cropperImageEvent = null
+    this.registerSharedService.profileAvatarFile = null
   }
 
   cropperResult(event: any) {
@@ -127,12 +141,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .then(file => this.registerSharedService.profileAvatarFile = file)
   }
 
-  // image presenter remove function was triggered
-  removedImage() {
-    this.avatarSourceUrl = null
-    this.cropperImageEvent = null
-    this.registerSharedService.profileAvatarFile = null
+  cropperModalStateChanged(args: boolean) {
+    this.cropperModalShown = args
   }
+
+  // error handlers
 
   handlePreErrors() {
     this.clearError()

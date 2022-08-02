@@ -8,7 +8,7 @@
         <p>
           {{ registrationStep == 1 ? 'Start publishing your designs and share them with other people.' : 'Select an image from your local machine or by just dragging and dropping it in here.'}}
         </p>
-        <p *ngIf="registrationStep == 2">(File size should not exceed, the maximum file size of 1MB)</p>
+        <p *ngIf="registrationStep == 2">(File size should not exceed, the maximum size of 1MB)</p>
       </div>
 
       <!-- credentials and private info section -->
@@ -34,7 +34,7 @@
       <div *ngIf="registrationStep == 2" class="profile-section">
         <div class="image-selector-container">
           <app-profile-presenter [source]="avatarSourceUrl" [size]="170" [iconSize]="70" [allowCursorPointer]="true"
-            [isEditMode]="true" (imageEdited)="fileupload.click()" (imageRemoved)="removedImage()">
+            [isEditMode]="true" (imageEdited)="fileupload.click()" (imageRemoved)="removedImage(fileupload)">
           </app-profile-presenter>
 
           <input type="file" hidden (change)="handleAvatarFileUpload($event)" [multiple]="false" #fileupload>
@@ -48,8 +48,9 @@
         <button class="primary-button" (click)="next()">{{ registrationStep == 1 ? 'Next' : 'Register' }}</button>
       </div>
 
-      <app-modal-image-cropper cropperTitle="Adjust your Avatar image" [imageChangedEvent]="cropperImageEvent"
-        (cropperBase64Result)="cropperResult($event)">
+      <app-modal-image-cropper [modalShown]="cropperModalShown" cropperTitle="Adjust your avatar image"
+        [imageChangedEvent]="cropperImageEvent" (cropperBase64Result)="cropperResult($event)"
+        (modalStateChanged)="cropperModalStateChanged($event)">
       </app-modal-image-cropper>
     </div>
   </ng-template>

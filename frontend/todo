@@ -1,5 +1,3 @@
-- work on cropper in signup, as well as make it responsive, and fix bug on email or username change, cropper activates automatically
-
 - implement theming system, as well as use app configs
 - write custom validators for inputs (username/exists validator/email..., password and confirmation equal)
 - ensure username is lowercase
