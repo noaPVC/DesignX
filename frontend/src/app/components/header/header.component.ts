@@ -13,9 +13,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  newDesign() {
-    console.log('TODO: design add function... and header responsiveness')
-  }
+  newDesign() {}
 
   // profile-dropdown handlers
   showProfileOptions() : void {
