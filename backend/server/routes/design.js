@@ -5,8 +5,10 @@ const router = express.Router()
 
 const Design = require('../models/design.model')
 const User = require('../models/user.model')
+
 const Saved = require('../models/saved.model')
 const Liked = require('../models/liked.model')
+const Viewed = require('../models/viewed.model')
 
 const { authenticateToken } = require('../services/auth.service')
 const mapper_service = require('../services/response_mapper.service')
@@ -16,6 +18,7 @@ const file_service = require('../services/file.service')
 
 router.get('/:id', authenticateToken, async (req, res) => {
     const parsedId = req.params.id
+    const userId = req.user._id
 
     if (!parsedId || !mongoose.isValidObjectId(parsedId))
         return res.status(400).json({ error: true, message: 'Invalid Id!' })
@@ -23,6 +26,15 @@ router.get('/:id', authenticateToken, async (req, res) => {
     const design = await Design.findById(parsedId)
 
     if (design) {
+        const viewExists = await Viewed.findOne({ $and: [{ _designId: parsedId }, { _userId: userId }] })
+
+        if (!viewExists) {
+            new Viewed({ _designId: parsedId, _userId: userId }).save()
+                .then(async () => {
+                    await Design.findByIdAndUpdate(parsedId, { $inc: { views: 1 } })
+                })
+        }
+
         const designResponse = mapper_service.designResponseBuilder(design, req.user._id)
         return res.status(200).json(designResponse)
     }

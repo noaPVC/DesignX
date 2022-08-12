@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LoaderType } from 'src/app/enums/loader.enum';
@@ -53,6 +53,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const user = this.registerSharedService.buildUserAuthDto()
 
     this.authService.register(user).subscribe(result => {
+      this.registerSharedService.resetUsernameEmail()
+
       if(!result.error) {
         this.router.navigateByUrl('/authenticate/login')
         this.toastService.new(ToastType.Success, 'Account was successfully created!', false)
@@ -61,8 +63,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
       this.router.navigateByUrl('/authenticate/login')
       this.toastService.new(ToastType.Error, 'Something went wrong, try again later...', false)
-
-      this.registerSharedService.resetUsernameEmail()
     })
   }
 
@@ -78,7 +78,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       const username = this.signUpForm.get('username')?.value
       const email = this.signUpForm.get('email')?.value
 
-      if(!this.registerSharedService.usernameEmailUnchanged(username, email)){
+      if(!this.registerSharedService.usernameEmailUnchanged(username, email)) {
+
         this.userService.userAlreadyExists(username).subscribe(result => {
           if(result.exists) {
             this.registrationStep = 1
@@ -96,6 +97,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             return this.issueError(`User with email "${email}", already exists..`)
           }
         })
+
       }
 
       this.clearError()
@@ -125,16 +127,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.cropperModalShown = true
   }
 
-  // image presenter remove function was triggered
-
-  removedImage(fileuploadInput: any) {
-    fileuploadInput.value = null
-    this.avatarSourceUrl = null
-    this.cropperImageEvent = null
-    this.registerSharedService.profileAvatarFile = null
-  }
-
   cropperResult(event: any) {
+    // showing the cropped image to the user
     this.avatarSourceUrl = event
 
     this.fileService.urlToFile(event, 'avatar.png', 'image/png')
@@ -143,6 +137,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   cropperModalStateChanged(args: boolean) {
     this.cropperModalShown = args
+  }
+
+  // image presenter remove function was triggered
+
+  removedImage(fileuploadInput: any) {
+    fileuploadInput.value = null
+    this.avatarSourceUrl = null
+    this.cropperImageEvent = null
+    this.registerSharedService.profileAvatarFile = null
   }
 
   // error handlers

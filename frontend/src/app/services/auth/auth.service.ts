@@ -52,12 +52,17 @@ export class AuthService {
       return
     }
 
-    this.httpClient.post<any>('/auth/refreshtoken', { refreshToken: refreshToken }).subscribe(response => {
-      localStorage.setItem('token', response.accessToken)
-      localStorage.setItem('refreshToken', response.refreshToken)
-    }, err => {
-      this.logout()
-      this.toastService.new(ToastType.Error, 'Something went wrong please try to login again..', false)
+    this.httpClient.post<any>('/auth/refreshtoken', { refreshToken: refreshToken }).subscribe({
+      next: (response) => {
+        const { accessToken, refreshToken } = response
+
+        localStorage.setItem('token', accessToken)
+        localStorage.setItem('refreshToken', refreshToken)
+      },
+      error: (err) => {
+        this.logout()
+        this.toastService.new(ToastType.Error, 'Something went wrong please try to login again..', false)
+      }
     })
   }
 

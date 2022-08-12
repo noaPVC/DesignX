@@ -9,12 +9,12 @@ export class ValidationService {
   constructor() { }
 
   findInvalidControls(form: FormGroup) {
-    const invalid = [];
-    const controls = form.controls;
+    const invalid = []
+    const controls = form.controls
 
     for (const name in controls) {
         if (controls[name].invalid) {
-            invalid.push(name);
+            invalid.push(name)
         }
     }
 

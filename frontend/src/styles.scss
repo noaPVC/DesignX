@@ -158,14 +158,60 @@ input.ng-touched.ng-invalid {
   transition: opacity .2s ease, color .3s ease;
 }
 
+/* global icon button definitions (reqs: contains icon and no text) */
+
+.icon-button {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+
+  color: var(--background-color);
+  background-color: var(--primary-color);
+}
+
+.icon-button i {
+  font-size: x-large;
+}
+
+.icon-button.border {
+  background: none;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.icon-button.round {
+  border-radius: 50%;
+}
+
+.icon-button:hover {
+  background-color: var(--primary-hover);
+  transition: background-color .3s ease-in;
+}
+
+.icon-button.border:hover {
+  background: none;
+  opacity: .8;
+  transition: opacity .3s ease-in;
+}
+
 /* global light danger button */
 
 .light-danger-button {
   color: var(--primary-error);
+  padding: .7rem 1rem;
+
   background-color: var(--icon-background-color-hover);
   border: 2px solid var(--icon-background-color);
   border-radius: 10px;
-  padding: .7rem 1rem;
+
   cursor: pointer;
   font-size: 1em;
 
@@ -250,7 +296,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 
 /* global cropper definitions and refinements */
 
-/* [!important] disadvised to use, but in this case we have to force it for the changes to take effect on the library component */
+/* [!important] disadvised to use, but in this case we hvae to force it for the changes to take effect on the library component */
 
 image-cropper {
   padding: 10px 10px 7px 10px !important;

@@ -12,7 +12,7 @@ import { ToastService } from './services/notification/toast/toast.service';
 })
 
 export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
-  private refreshTokenInterval: any = setInterval(() => null, 0)
+  private refreshTokenInterval: any
 
   constructor(public router : Router, private changeRef: ChangeDetectorRef, public toastService: ToastService, public loadingService: LoadingService,
     private authService: AuthService) {}

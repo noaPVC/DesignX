@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('loginForm', { read: NgForm }) form: any
 
-  constructor(private router: Router, private authService: AuthService, private userService: UserService, public loadingService: LoadingService, private titleService: Title) {}
+  constructor(private router: Router, private authService: AuthService, private userService: UserService,
+      public loadingService: LoadingService, private titleService: Title) {}
 
   ngOnInit(): void {
     this.titleService.setTitle('DesignX')
@@ -40,8 +41,10 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.form.value.usernameOrEmail, this.form.value.password)
-      .subscribe(response => this.handleResponse(response),
-                 err => this.handleError(err))
+      .subscribe({
+        next: (response) => this.handleResponse(response),
+        error: (err) => this.handleError(err)
+      })
   }
 
   tryRedirectToDashboard() {
@@ -51,12 +54,13 @@ export class LoginComponent implements OnInit {
 
   handleResponse(response: any) {
     this.clearError()
+    const { accessToken, refreshToken, user } = response
 
-    localStorage.setItem('token', response.accessToken)
-    localStorage.setItem('refreshToken', response.refreshToken)
+    localStorage.setItem('token', accessToken)
+    localStorage.setItem('refreshToken', refreshToken)
     localStorage.setItem('keepLoggedIn', this.isRememberMe.toString())
 
-    this.userService.initialize(response.user, this.isRememberMe)
+    this.userService.initialize(user, this.isRememberMe)
     this.tryRedirectToDashboard()
   }
 

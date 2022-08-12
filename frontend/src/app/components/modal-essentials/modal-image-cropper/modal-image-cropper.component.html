@@ -13,8 +13,13 @@
     </image-cropper>
 
     <div class="actions">
-      <button class="border-button" (click)="cancelAction()">Cancel</button>
-      <button class="primary-button" (click)="proceedAction()">Look's Good!</button>
+      <button class="icon-button border" (click)="cancelAction()">
+        <i class="ri-close-line"></i>
+      </button>
+
+      <button class="icon-button" (click)="proceedAction()">
+        <i class="ri-check-line"></i>
+      </button>
     </div>
   </div>
 </div>
