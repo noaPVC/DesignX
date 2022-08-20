@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { LoaderType } from 'src/app/enums/loader.enum';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.form.value.usernameOrEmail, this.form.value.password)
-      .subscribe({
+      .pipe(take(1)).subscribe({
         next: (response) => this.handleResponse(response),
         error: (err) => this.handleError(err)
       })
