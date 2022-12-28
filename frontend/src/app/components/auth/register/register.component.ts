@@ -66,6 +66,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     })
   }
 
+  // replace observable checks (eg: userAlready exists, has changed or password confirmations inside dedicated validators)
   next() {
     if(this.registrationStep == 1) {
       if(this.signUpForm.invalid)

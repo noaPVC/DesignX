@@ -17,6 +17,7 @@ app.use(bodyParser.json())
 app.use(cors({
   origin: 'http://localhost:4200'
 }))
+
 app.use('/usercontent', express.static(__dirname + '/usercontent'))
 
 // routes
