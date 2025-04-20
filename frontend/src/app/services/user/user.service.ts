@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, first, Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment';
 
@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   user: User = environment.defaults.user
+
   keepLoggedIn: boolean = false
   isLoggedIn: boolean = false
 
@@ -18,16 +19,21 @@ export class UserService {
     const keepLoggedIn = JSON.parse(localStorage.getItem('keepLoggedIn') ?? 'false')
 
     if(localStorage.getItem('token') && keepLoggedIn) {
-      this.checkSessionValid().subscribe(result => {
-        this.user = result.user
-        this.isLoggedIn = true
-        this.keepLoggedIn = keepLoggedIn
+      this.checkSessionValid()
+        .pipe(first(), catchError(() => {
+          this.dispose()
+          this.router.navigateByUrl('/authenticate/login')
 
-        this.router.navigateByUrl('/authenticate/login')
-      }, err => {
-        this.dispose()
-        this.router.navigateByUrl('/authenticate/login')
-      })
+          return EMPTY
+        
+        })).subscribe(result => {
+        
+          this.user = result.user
+          this.isLoggedIn = true
+          this.keepLoggedIn = keepLoggedIn
+
+          this.router.navigateByUrl('/authenticate/login')
+        })
     } else {
       this.dispose()
       this.router.navigateByUrl('/authenticate/login')
@@ -38,14 +44,17 @@ export class UserService {
     this.user = user
     this.isLoggedIn = true
     this.keepLoggedIn = keepLoggedIn
+
+    console.clear()
+    console.log(this.user)
   }
 
   checkSessionValid() : Observable<any> {
     return this.httpClient.get<any>('/user/current')
   }
 
-  userAlreadyExists(usernameOrEmail: string) : Observable<any> {
-    return this.httpClient.post<any>('/user/username/email/exists', { key: usernameOrEmail })
+  userAlreadyExists(username: string, email: string) : Observable<any> {
+    return this.httpClient.post<any>('/user/username/email/exists', { username, email })
   }
 
   dispose() : void {

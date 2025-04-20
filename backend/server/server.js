@@ -12,6 +12,16 @@ const designsRouter = require('./routes/designs')
 const app = express()
 const PORT = 3000
 
+// Allow requests from localhost:4200
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}
+
+app.use(cors(corsOptions))
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors({

@@ -18,8 +18,8 @@ router.get('/current', authenticateToken, async (req, res) => {
 
 // validation exists on user signup
 router.post('/username/email/exists', async (req, res) => {
-    const usernameOrEmail = req.body.key
-    const user = await User.findOne({ $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }] })
+    const { username, email } = req.body
+    const user = await User.findOne({ $or: [{ email }, { username }] })
 
     return res.json({ exists: user != null && user != undefined })
 })

@@ -81,23 +81,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
       if(!this.registerSharedService.usernameEmailUnchanged(username, email)) {
 
-        this.userService.userAlreadyExists(username).subscribe(result => {
+        this.userService.userAlreadyExists(username, email).subscribe(result => {
           if(result.exists) {
             this.registrationStep = 1
 
             this.registerSharedService.resetUsernameEmail()
-            return this.issueError(`Username "${username}", is already taken..`)
+            return this.issueError(`Username or email, is already taken..`)
           }
         })
 
-        this.userService.userAlreadyExists(email).subscribe(result => {
-          if(result.exists) {
-            this.registrationStep = 1
+        // this.userService.userAlreadyExists(email).subscribe(result => {
+        //   if(result.exists) {
+        //     this.registrationStep = 1
 
-            this.registerSharedService.resetUsernameEmail()
-            return this.issueError(`User with email "${email}", already exists..`)
-          }
-        })
+        //     this.registerSharedService.resetUsernameEmail()
+        //     return this.issueError(`User with email "${email}", already exists..`)
+        //   }
+        // })
 
       }
 

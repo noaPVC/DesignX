@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./profile-presenter.component.scss']
 })
 export class ProfilePresenterComponent implements OnInit, OnChanges {
-  colorValueBackground: string = this.pickRandomColor()
+  colorValueBackground: string = this.getBgColorBasedUser(this.userService.user._id || "none")
   savedBackgroundColor: string = this.colorValueBackground
 
   @Input() size: number = 45
@@ -29,16 +29,7 @@ export class ProfilePresenterComponent implements OnInit, OnChanges {
     this.presenterClicked.emit()
   }
 
-  ngOnInit(): void {
-    // showing an either random bg or fitting it to the current user color
-    if(!this.isRandomBackgroundColor) {
-      const savedColor = localStorage.getItem('sharedAccountColor')
-      if(!savedColor)
-        return localStorage.setItem('sharedAccountColor', this.colorValueBackground)
-
-      this.setSharedColor(savedColor)
-    }
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.colorValueBackground = this.source && !this.source.endsWith('null') ? '#0000' : this.savedBackgroundColor
@@ -61,10 +52,17 @@ export class ProfilePresenterComponent implements OnInit, OnChanges {
     this.imageRemoved.emit()
   }
 
-  pickRandomColor(): string {
+  getBgColorBasedUser(id: string): string {
     const colors: string[] = ['#E6E6FA', '#fff1e1', '#F7D2E1', '#a2d5c6', '#12a4d9', '#ffc13b', '#5c3c92', '#d9a5b3', '#1868ae', '#c6d7eb', '#77c593']
-    const randIdx = Math.floor(Math.random() * colors.length)
+    
+    let hash = 0
 
-    return colors[randIdx]
+    for (let i = 0; i < id.length; i++) {
+      hash = id.charCodeAt(i) + ((hash << 5) - hash)
+      hash |= 0
+    }
+  
+    const index = Math.abs(hash) % colors.length
+    return colors[index]
   }
 }

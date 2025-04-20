@@ -18,9 +18,10 @@ export class InterceptorService implements HttpInterceptor {
 
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${accessToken}`,
       },
-      url: baseUrl.concat(route)
+      url: baseUrl.concat(route),
+      withCredentials: true
     })
 
     return next.handle(request);
